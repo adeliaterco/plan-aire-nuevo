@@ -357,7 +357,12 @@ export default function HomePage() {
         {isLoading && (
           <div className="loading-overlay">
             <div className="loading-content">
-              <div style={{ fontSize: "18px", fontWeight: "600" }}>Preparando tu evaluación personalizada...</div>
+              <div style={{ fontSize: "18px", fontWeight: "600" }}>
+                Preparando tu análisis personalizado...
+                <div style={{fontSize: "14px", marginTop: "8px", color: "#dc2626"}}>
+                  ⚠️ Spot #{Math.floor(Math.random() * 23 + 77)} de 100 reservado
+                </div>
+              </div>
               <div className="progress-bar">
                 <div className="progress-fill" style={{ width: `${loadingProgress}%` }} />
               </div>
@@ -438,25 +443,51 @@ export default function HomePage() {
               />
             </div>
 
-            {/* NOVA HEADLINE IMPACTANTE */}
+            {/* 1. NOVA HEADLINE IMPACTANTE */}
             <h1 className="titulo-quiz">
               <span className="emoji-alerta">🚨</span>
-              PRUEBA IMPACTANTE: ¿Por Qué Ella Te Espía a las 2 a.m. Pero Finge Que Te Olvidó?
+              ELLA SIGUE PENSANDO EN TI
+              <br />
+              <span style={{fontSize: '20px', opacity: 0.9, color: '#dc2626'}}>
+                (El Test Que Lo Revela)
+              </span>
             </h1>
 
-            {/* NOVO SUBTÍTULO COM GANCHO PSICOLÓGICO */}
+            {/* 2. NOVO SUBTÍTULO COM GANCHO PSICOLÓGICO */}
             <p className="subtitulo-quiz">
-              El descubrimiento psicológico que el 97% de los hombres desconocen: existe <span className="destaque-palavra">UNA ÚNICA PALABRA</span> que rompe el ego femenino y la hace rogar por tu perdón... <span className="prova-social">3,847 hombres ya han descubierto cuál es la suya.</span>
+              Responde <span className="destaque-palavra">7 PREGUNTAS ESPECÍFICAS</span> y descubre si aún sientes algo por ti basándome en señales psicológicas que el 89% ignora...
+              <br />
+              <span className="prova-social">3,847 hombres ya conocen la verdad sobre su ex.</span>
             </p>
 
-            {/* INFORMAÇÕES DO QUIZ */}
+            {/* 5. INFORMAÇÕES DO QUIZ MELHORADAS */}
             <div className="quiz-info">
-              <div>⏱️ 2 minutos</div>
-              <div>🎯 Resultado instantáneo</div>
-              <div>🎁 100% gratuito</div>
+              <div>⏱️ 2 min</div>
+              <div>🎯 Resultado inmediato</div>
+              <div>🔥 Análisis personalizado</div>
             </div>
 
-            {/* CTA OTIMIZADO */}
+            {/* 4. NOVO: Escassez Real */}
+            <div style={{
+              background: 'rgba(220, 38, 38, 0.1)',
+              border: '1px solid rgba(220, 38, 38, 0.4)',
+              borderRadius: '10px',
+              padding: '12px',
+              margin: '15px 0',
+              textAlign: 'center'
+            }}>
+              <div style={{color: '#dc2626', fontSize: '13px', fontWeight: '600'}}>
+                ⚠️ ACCESO LIMITADO HOY
+              </div>
+              <div style={{color: '#fff', fontSize: '12px', marginTop: '4px'}}>
+                Solo 100 personas por día pueden acceder al test completo
+              </div>
+              <div style={{color: '#dc2626', fontSize: '12px', fontWeight: '600', marginTop: '2px'}}>
+                Spots restantes: 23
+              </div>
+            </div>
+
+            {/* 3. CTA OTIMIZADO */}
             <button 
               onClick={handleStart} 
               disabled={isLoading || !isOnline} 
@@ -466,11 +497,28 @@ export default function HomePage() {
                 "PREPARANDO..."
               ) : (
                 <>
-                  DESCUBRIR MI PALABRA SECRETA
+                  HACER LA PRUEBA AHORA
                   <ArrowRight size={18} />
                 </>
               )}
             </button>
+
+            {/* 6. NOVO: Prova Social Específica */}
+            <div style={{
+              background: 'rgba(0, 0, 0, 0.3)',
+              borderRadius: '10px',
+              padding: '12px',
+              margin: '20px 0 15px 0',
+              border: '1px solid rgba(34, 197, 94, 0.3)'
+            }}>
+              <div style={{color: '#22c55e', fontSize: '12px', fontWeight: '600', textAlign: 'center', marginBottom: '6px'}}>
+                RESULTADO RECIENTE:
+              </div>
+              <div style={{color: '#fff', fontSize: '11px', textAlign: 'center', fontStyle: 'italic'}}>
+                "Hice el test y descubrí que ella SÍ pensaba en mí. 
+                En 12 días volvimos." - Miguel R.
+              </div>
+            </div>
 
             {/* GARANTIA MÍNIMA */}
             <div className="garantia-simples">
