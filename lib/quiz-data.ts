@@ -301,7 +301,7 @@ export const quizSteps = [
       testimonialDisplay: true,
       testimonialName: "Carlos M., 34 años",
       testimonialText: "Respondió en 3 días. Volvimos en 11.",
-      testimonialImage: "https://comprarplanseguro.shop/wp-content/uploads/2025/08/Captura-de-Tela-2025-08-08-as-19.01.05.png",
+      testimonialImage: "https://i.ibb.co/cHg61QK/Persona-1.webp",
     },
   },
   {
@@ -403,7 +403,7 @@ export const quizSteps = [
       testimonialDisplay: true,
       testimonialName: "Diego L., 36 años",
       testimonialText: "Estaba con otro tipo. En 16 días lo dejó por mí.",
-      testimonialImage: "https://comprarplanseguro.shop/wp-content/uploads/2025/08/Captura-de-Tela-2025-08-08-as-19.01.05.png",
+      testimonialImage: "https://i.ibb.co/YB3pHrV0/prova-pv-inicial.webp",
     },
   },
   {
