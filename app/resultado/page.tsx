@@ -251,6 +251,7 @@ export default function ResultPageExplosive() {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
                   
+                  {/* CARD 1 - Miguel Á. - CONTACTO CERO (RÁPIDO RESULTADO) */}
                   <div className="bg-gray-800 rounded-xl p-6 border border-gray-700">
                     <div className="flex items-start space-x-4">
                       <img 
@@ -259,12 +260,12 @@ export default function ResultPageExplosive() {
                         className="w-12 h-12 rounded-full object-cover flex-shrink-0"
                       />
                       <div className="flex-1">
-                        <h4 className="text-white font-bold mobile-info-text mb-2 break-words">Carlos M., 32 años</h4>
+                        <h4 className="text-white font-bold mobile-info-text mb-2 break-words">Miguel Á., 33 años - Colombia</h4>
                         <p className="text-gray-300 mobile-small-text mb-3 break-words">
-                          <span className="text-yellow-400">Situación similar a la tuya:</span> {getPersonalizedSituation()}, {getPersonalizedTimeframe()}
+                          <span className="text-yellow-400">Situación:</span> Contacto cero desde hace 2 meses
                         </p>
                         <p className="text-white mobile-info-text italic mb-3 break-words">
-                          "Seguí exactamente los pasos. Al día 11 me escribió preguntando si podíamos hablar. Al día 18 volvimos oficialmente. El Plan A funciona."
+                          "Estaba 2 meses en contacto cero sin saber qué hacer. El Plan A me enseñó QUÉ mensaje enviar y CUÁNDO. A los 4 días {getPronoun()} respondió preguntando cómo estaba. A los 11 días me pidió que nos viéramos. <strong>La diferencia fue tener un mensaje exacto, no suplicar.</strong> Hoy estamos de vuelta y mejor que antes."
                         </p>
                         <div className="flex items-center mt-3">
                           {[...Array(5)].map((_, i) => (
@@ -276,6 +277,7 @@ export default function ResultPageExplosive() {
                     </div>
                   </div>
 
+                  {/* CARD 2 - Gustavo R. - CON OTRO (DIFÍCIL) */}
                   <div className="bg-gray-800 rounded-xl p-6 border border-gray-700">
                     <div className="flex items-start space-x-4">
                       <img 
@@ -284,12 +286,12 @@ export default function ResultPageExplosive() {
                         className="w-12 h-12 rounded-full object-cover flex-shrink-0"
                       />
                       <div className="flex-1">
-                        <h4 className="text-white font-bold mobile-info-text mb-2 break-words">Rafael S., 28 años</h4>
+                        <h4 className="text-white font-bold mobile-info-text mb-2 break-words">Gustavo R., 29 años - Perú</h4>
                         <p className="text-gray-300 mobile-small-text mb-3 break-words">
-                          <span className="text-yellow-400">Su caso:</span> {getPronoun()} ya estaba con {getOtherWord()}, igual que tu situación
+                          <span className="text-yellow-400">Situación:</span> {getPronoun()} estaba con otro/otra hace 3 meses
                         </p>
                         <p className="text-white mobile-info-text italic mb-3 break-words">
-                          "Pensé que era imposible porque {getPronoun()} tenía {getOtherWord()}. Pero el Plan A me enseñó que eso era ventaja. En 16 días {getOtherPronoun()} recuperé."
+                          "Mi situación parecía completamente perdida. {getPronoun()} llevaba 3 meses con esta otra persona. Pensé que había perdido para siempre. Pero el Protocolo Anti-Terceros del Plan A me mostró exactamente qué hacer. Día 1-7: diferenciación (hacerme valioso). Día 8-12: reactivación (recordarle lo que teníamos). Día 13: {getPronoun()} empezó a cuestionarse. Día 16: {getPronoun()} me escribió. <strong>Hoy dejó a ese tipo y estamos viviendo juntos. Fue pura estrategia psicológica.</strong>"
                         </p>
                         <div className="flex items-center mt-3">
                           {[...Array(5)].map((_, i) => (
@@ -300,6 +302,59 @@ export default function ResultPageExplosive() {
                       </div>
                     </div>
                   </div>
+
+                  {/* CARD 3 - Javier M. - BLOQUEADO (CRÍTICO) */}
+                  <div className="bg-gray-800 rounded-xl p-6 border border-gray-700">
+                    <div className="flex items-start space-x-4">
+                      <img 
+                        src="https://comprarplanseguro.shop/wp-content/uploads/2025/08/Captura-de-Tela-2025-08-08-as-19.01.05.png" 
+                        alt="Testimonio" 
+                        className="w-12 h-12 rounded-full object-cover flex-shrink-0"
+                      />
+                      <div className="flex-1">
+                        <h4 className="text-white font-bold mobile-info-text mb-2 break-words">Javier M., 38 años - España</h4>
+                        <p className="text-gray-300 mobile-small-text mb-3 break-words">
+                          <span className="text-yellow-400">Situación:</span> Bloqueado en redes, 5 meses sin contacto
+                        </p>
+                        <p className="text-white mobile-info-text italic mb-3 break-words">
+                          "Estaba completamente bloqueado en todas partes. Parecía imposible. Pensé que nunca más hablaría con {getPronoun()}. El Protocolo Indirecto del Plan A fue mi salvación. En lugar de contacto directo, usé la estrategia de tercero (amigo común). Sin presión, sin desesperación, solo información de valor. En una semana, {getPronoun()} me desbloqueó voluntariamente. En 18 días volvimos juntos. <strong>Lo que parecía definitivo se revirtió con la estrategia correcta.</strong>"
+                        </p>
+                        <div className="flex items-center mt-3">
+                          {[...Array(5)].map((_, i) => (
+                            <Star key={i} className="w-4 h-4 text-yellow-400 fill-current" />
+                          ))}
+                          <span className="text-green-400 mobile-small-text ml-2 font-bold">✅ Recuperó su relación</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* CARD 4 - Roberto L. - SOLO AMIGOS (RELATABLE) */}
+                  <div className="bg-gray-800 rounded-xl p-6 border border-gray-700">
+                    <div className="flex items-start space-x-4">
+                      <img 
+                        src="https://nutricaoalimentos.shop/wp-content/uploads/2025/09/lg-9xvta-canva-couple-in-love-mafv-z4mya0.jpg" 
+                        alt="Testimonio" 
+                        className="w-12 h-12 rounded-full object-cover flex-shrink-0"
+                      />
+                      <div className="flex-1">
+                        <h4 className="text-white font-bold mobile-info-text mb-2 break-words">Roberto L., 27 años - Venezuela</h4>
+                        <p className="text-gray-300 mobile-small-text mb-3 break-words">
+                          <span className="text-yellow-400">Situación:</span> "Solo amigos" desde hace 3 meses
+                        </p>
+                        <p className="text-white mobile-info-text italic mb-3 break-words">
+                          "Sabía que decir 'somos amigos' era la peor trampa. Pero no sabía cómo salir. El Plan A me mostró la Técnica de Ruptura del Patrón. Reducí contacto en 50%, fui más misterioso, mencionaba otros planes, no siempre disponible. En 2 semanas volvió a mirarme diferente. En 4 semanas me pidió salir como pareja. <strong>La disponibilidad constante mata la atracción. La escasez la reaviva.</strong> Ahora entiendo la psicología detrás."
+                        </p>
+                        <div className="flex items-center mt-3">
+                          {[...Array(5)].map((_, i) => (
+                            <Star key={i} className="w-4 h-4 text-yellow-400 fill-current" />
+                          ))}
+                          <span className="text-green-400 mobile-small-text ml-2 font-bold">✅ Recuperó su relación</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
                 </div>
 
                 <div className="mobile-grid max-w-2xl mx-auto mb-8">
