@@ -299,8 +299,8 @@ export const quizSteps = [
       analysisText: "Calculando tasa de éxito para tu caso...",
       successRate: "¡Tu caso tiene características prometedoras!",
       testimonialDisplay: true,
-      testimonialName: "Carlos M.",
-      testimonialText: "¡Volvió a responderme al 3er día y me propuso vernos al 6º día!",
+      testimonialName: "Carlos M., 34 años",
+      testimonialText: "Respondió en 3 días. Volvimos en 11.",
       testimonialImage: "https://comprarplanseguro.shop/wp-content/uploads/2025/08/Captura-de-Tela-2025-08-08-as-19.01.05.png",
     },
   },
@@ -401,9 +401,9 @@ export const quizSteps = [
     elements: {
       profileComplete: "77%",
       testimonialDisplay: true,
-      testimonialName: "Rafael S.",
-      testimonialText: "Estaba perdido después de la ruptura. El Plan A me dio dirección y confianza. ¡Hoy estamos más unidos que nunca!",
-      testimonialImage: "https://nutricaoalimentos.shop/wp-content/uploads/2025/09/lg-9xvta-canva-couple-in-love-mafv-z4mya0.jpg",
+      testimonialName: "Diego L., 36 años",
+      testimonialText: "Estaba con otro tipo. En 16 días lo dejó por mí.",
+      testimonialImage: "https://comprarplanseguro.shop/wp-content/uploads/2025/08/Captura-de-Tela-2025-08-08-as-19.01.05.png",
     },
   },
   {
@@ -441,7 +441,7 @@ export const quizSteps = [
     id: 11,
     question: "PRIMER DESCUBRIMIENTO PERSONALIZADO PARA TU CASO",
     description: "Baseado en tu situación específica, he identificado el error #1 que está arruinando tus chances de reconquista.",
-    subtext: () => getPersonalizedFirstInsight(), // Função que personaliza baseado nas respostas
+    subtext: () => getPersonalizedFirstInsight(),
     options: ["DESCUBRIR MI ERROR #1"],
     elements: {
       expertPhoto: true,
@@ -456,15 +456,13 @@ export const quizSteps = [
   {
     id: 12,
     question: "TU PRIMERA TÉCNICA PERSONALIZADA - FUNCIONA EN 72H",
-    description: () => getPersonalizedTechnique(), // Técnica específica baseada na situação
+    description: () => getPersonalizedTechnique(),
     subtext: "Esta técnica está diseñada específicamente para tu situación y tiene 89% de efectividad en casos similares.",
     options: ["APLICAR ESTA TÉCNICA AHORA"],
     elements: {
       personalizedTechnique: true,
       situationSpecific: true,
       profileComplete: "85%",
-      testimonialDisplay: true,
-      testimonialData: () => getPersonalizedTestimonial(), // Depoimento de caso similar
       badge: "TÉCNICA ESPECÍFICA", 
       timer: "Aplicar en 48-72h",
     },
@@ -474,7 +472,7 @@ export const quizSteps = [
     id: 13,
     question: "TU PLAN PERSONALIZADO DE 7 DÍAS ESTÁ LISTO",
     description: "He creado tu estrategia específica basada en todos tus datos. Estos son los primeros 7 pasos que necesitas seguir.",
-    subtext: () => getPersonalized7DayPlan(), // Plano específico baseado em todas as respostas
+    subtext: () => getPersonalized7DayPlan(),
     options: ["VER LOS PRÓXIMOS 14 PASOS DEL PLAN A"],
     note: "Esto es solo el 30% del método completo. Los próximos 70% incluyen las técnicas avanzadas y scripts exactos.",
     elements: {
@@ -510,22 +508,22 @@ export const bonuses = [
 export const testimonials = [
   {
     name: "Carlos M., 34 años",
-    text: "¡Volvió a responderme al 3er día y me propuso vernos al 6º día!",
+    text: "Respondió en 3 días. Volvimos en 11.",
     rating: 5,
   },
   {
-    name: "Rafael, 32 años",
-    text: "Estaba perdido después de la ruptura. El Plan A me dio dirección y confianza. ¡Hoy estamos más unidos que nunca!",
+    name: "Santiago B., 31 años",
+    text: "Seguí exactamente los pasos del Plan A. Al día 7, rompí el contacto cero. Al día 14 me pidió que nos viéramos. Ahora llevamos 6 meses juntos de nuevo.",
     rating: 5,
   },
   {
-    name: "André, 28 años",
-    text: "En solo 2 semanas siguiendo el Plan A, logré reconquistar a mi ex. ¡Los guiones funcionaron perfectamente!",
+    name: "Diego L., 36 años",
+    text: "Pensé que era imposible porque estaba con otro tipo. En 16 días lo dejó por mí.",
     rating: 5,
   },
   {
-    name: "Marcelo, 41 años",
-    text: "Después de 6 meses separados, pensé que ya no tenía oportunidad. En el día 12 del Plan A me llamó llorando queriendo volver.",
+    name: "Javier M., 38 años",
+    text: "Estaba completamente bloqueado. En 18 días volvimos a estar juntos.",
     rating: 5,
   },
 ]
