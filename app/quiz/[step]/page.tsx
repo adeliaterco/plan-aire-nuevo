@@ -347,7 +347,7 @@ export default function QuizStep() {
             </Button>
 
             <div className="flex items-center gap-4">
-              {totalValue > 0 && <ValueCounter value={totalValue} />}
+              //{totalValue > 0 && <ValueCounter value={totalValue} />}
               {currentStep?.elements?.timer && (
                 <div className="flex items-center gap-2 text-white text-sm bg-white/10 px-3 py-1 rounded-full">
                   <Clock className="w-4 h-4" />
