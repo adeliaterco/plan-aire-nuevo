@@ -338,7 +338,7 @@ export default function ResultPageExplosive() {
                         className="w-12 h-12 rounded-full object-cover flex-shrink-0"
                       />
                       <div className="flex-1">
-                        <h4 className="text-white font-bold mobile-info-text mb-2 break-words">Roberto L., 27 años - Venezuela</h4>
+                        <h4 className="text-white font-bold mobile-info-text mb-2 break-words">Roberto L., 27 años - México</h4>
                         <p className="text-gray-300 mobile-small-text mb-3 break-words">
                           <span className="text-yellow-400">Situación:</span> "Solo amigos" desde hace 3 meses
                         </p>
