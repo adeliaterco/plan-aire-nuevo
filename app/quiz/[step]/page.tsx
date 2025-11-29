@@ -366,11 +366,6 @@ export default function QuizStep() {
               {/* ✅ CORRIGIDO: "de 13" em vez de "de 12" */}
               Etapa {step} de 13 • {Math.round(progress)}% completado
             </p>
-            {currentStep?.elements?.profileComplete && (
-              <p className="text-green-400 text-sm font-semibold">
-                Análisis de perfil: {currentStep.elements.profileComplete} completo
-              </p>
-            )}
           </div>
         </div>
 
