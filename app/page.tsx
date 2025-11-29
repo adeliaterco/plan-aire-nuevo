@@ -516,7 +516,7 @@ export default function HomePage() {
               </div>
               <div style={{color: '#fff', fontSize: '11px', textAlign: 'center', fontStyle: 'italic'}}>
                 "Hice el test y descubrí que ella SÍ pensaba en mí. 
-                En 12 días volvimos." - Miguel R.
+                En 12 días volvimos." - Carlos A.
               </div>
             </div>
 
