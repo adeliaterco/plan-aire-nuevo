@@ -51,7 +51,7 @@ function getPersonalizedFirstInsight() {
   return "❌ ERROR DETECTADO: Tu estrategia actual está generando el EFECTO CONTRARIO al que buscas. Hay un patrón específico que debes romper.";
 }
 
-// 2. FUNCIÓN PARA TÉCNICA PERSONALIZADA
+// 2. FUNÇÃO PARA TÉCNICA PERSONALIZADA
 function getPersonalizedTechnique() {
   const currentSituation = getUserAnswer('question7');
   const timeApart = getUserAnswer('question3');
@@ -166,7 +166,7 @@ Envía solo esto. No esperes respuesta inmediata.
 ¿Por qué funciona? Reactiva conexión emocional sin presión ni demandas.`;
 }
 
-// 3. FUNCIÓN PARA DEPOIMENTO PERSONALIZADO
+// 3. FUNÇÃO PARA DEPOIMENTO PERSONALIZADO
 function getPersonalizedTestimonial() {
   const currentSituation = getUserAnswer('question7');
   const timeApart = getUserAnswer('question3');
@@ -202,7 +202,7 @@ function getPersonalizedTestimonial() {
   };
 }
 
-// 4. FUNCIÓN PARA PLANO DE 7 DÍAS PERSONALIZADO
+// 4. FUNÇÃO PARA PLANO DE 7 DÍAS PERSONALIZADO
 function getPersonalized7DayPlan() {
   const gender = getUserGender();
   const timeApart = getUserAnswer('question3');
@@ -239,250 +239,315 @@ Los próximos 14 pasos incluyen:
 → Plan B de emergencia si algo sale mal`;
 }
 
-// === QUIZ STEPS TRANSFORMADO ===
+// === QUIZ STEPS COMPLETO OTIMIZADO ===
 
 export const quizSteps = [
   {
     id: 1,
-    question: "¡NO DEJES QUE LA PERSONA QUE AMAS SALGA DE TU VIDA PARA SIEMPRE!",
-    description: "Haz la prueba rápida de 2 minutos y descubre cómo aplicar el PLAN A - en tu caso específico.",
-    subtext: "Selecciona tu género:",
-    options: ["MASCULINO", "FEMENINO"],
-    warning: "⚠️ ATENCIÓN: ¡Este método comprobado solo debe usarse si estás 100% comprometido en reconquistar tu amor perdido!",
+    question: "INICIANDO ANÁLISIS PSICOLÓGICO...",
+    description: "Para revelar si ella aún siente algo por ti, necesito mapear tu perfil emocional específico.",
+    subtext: "DATO CRÍTICO #1 - Tu género influye directamente en cómo ella procesa la separación:",
+    options: ["SOY HOMBRE", "SOY MUJER"],
+    warning: "⚠️ IMPORTANTE: Este análisis fue desarrollado basándose en 12,000 casos reales de reconquista. Cada respuesta ajusta tu diagnóstico.",
     elements: {
-      heartbeat: true,
-      timer: "Prueba de 2 minutos",
+      psychologicalTest: true,
+      timer: "Análisis en progreso...",
+      analysisIcon: true,
+      badge: "ANÁLISIS PSICOLÓGICO",
     },
+    note: "El 89% de las personas ignoran estos patrones psicológicos... por eso fallan."
   },
+
   {
     id: 2,
-    question: "¿CUÁL ES TU EDAD?",
-    description: "(Esta información es crucial para personalizar tu plan de reconquista)",
+    question: "MAPEANDO TU PERFIL EMOCIONAL...",
+    description: "Tu edad determina qué técnicas psicológicas tendrán mayor impacto en tu caso específico.",
+    subtext: "DATO CRÍTICO #2 - Selecciona tu rango de edad:",
     options: [
-      "18-29 - Fase de descubrimientos emocionales",
-      "29-39 - Período de consolidación de valores",
-      "39-49 - Momento de reevaluación de prioridades",
-      "50+ - Fase de madurez emocional",
+      "18-29 años → Fase de alta intensidad emocional",
+      "30-39 años → Período de madurez y estabilidad", 
+      "40-49 años → Etapa de reevaluación de prioridades",
+      "50+ años → Fase de sabiduría emocional"
     ],
     elements: {
+      profileBuilding: true,
+      counter: "personas analizadas hoy",
+      profileComplete: "15%",
       ageIcons: true,
-      counter: "personas que ya hicieron la prueba hoy",
     },
+    note: "Cada grupo de edad responde a diferentes disparadores emocionales."
   },
+
   {
     id: 3,
-    question: "¿CUÁNTO TIEMPO LLEVAN SEPARADOS?",
-    description: "(El tiempo es un factor crítico para tu estrategia de reconquista)",
-    options: {
-      masculino: ["Menos de una semana", "Hace 1 mes", "De 2 a 6 meses", "Más de 6 meses"],
-      feminino: ["Menos de una semana", "Hace 1 mes", "De 2 a 6 meses", "Más de 6 meses"],
-    },
+    question: "CALCULANDO PROBABILIDADES DE RECONQUISTA...",
+    description: "El tiempo de separación es el factor más crítico para determinar qué técnicas usar y cuándo aplicarlas.",
+    subtext: "DATO CRÍTICO #3 - ¿Cuánto tiempo llevan separados?",
+    options: [
+      "Menos de 1 semana → Ventana de oportunidad crítica",
+      "1-4 semanas → Período de reflexión activa", 
+      "1-6 meses → Fase de adaptación emocional",
+      "Más de 6 meses → Etapa de reconstrucción profunda"
+    ],
     bonusUnlock: {
       id: 1,
       title: "21 DISPARADORES EMOCIONALES QUE FUNCIONAN",
       value: 47,
       description: "Las 21 frases exactas que hacen que piense en ti obsesivamente.",
     },
+    elements: {
+      probabilityCalculator: true,
+      profileComplete: "35%",
+      timelineVisual: true,
+    },
+    note: "REVELACIÓN: El 73% de las reconquistas exitosas ocurren aplicando la técnica correcta en el momento exacto."
   },
+
   {
     id: 4,
-    question: {
-      masculino: "¿CÓMO FUE SU SEPARACIÓN?",
-      feminino: "¿CÓMO FUE SU SEPARACIÓN?",
-    },
-    description: "(Esta información es vital para determinar tu estrategia específica)",
+    question: "IDENTIFICANDO PATRÓN DE RUPTURA...",
+    description: "Cómo terminó la relación revela su estado emocional actual y define qué estrategia psicológica será más efectiva.",
+    subtext: "DATO CRÍTICO #4 - ¿Cómo fue la separación?",
     options: {
-      masculino: ["Ella terminó conmigo", "Yo terminé con ella", "Decidimos terminar de mutuo acuerdo"],
-      feminino: ["Él terminó conmigo", "Yo terminé con él", "Decidimos terminar de mutuo acuerdo"],
+      masculino: [
+        "Ella terminó conmigo → Patrón de rechazo activo",
+        "Yo terminé con ella → Patrón de arrepentimiento",
+        "Decisión mutua → Patrón de duda compartida"
+      ],
+      feminino: [
+        "Él terminó conmigo → Patrón de rechazo activo", 
+        "Yo terminé con él → Patrón de arrepentimiento",
+        "Decisión mutua → Patrón de duda compartida"
+      ]
     },
     elements: {
-      analysisText: "Calculando tasa de éxito para tu caso...",
-      successRate: "¡Tu caso tiene características prometedoras!",
+      patternAnalysis: true,
+      profileComplete: "50%",
       testimonialDisplay: true,
-      testimonialName: "Carlos M., 34 años",
-      testimonialText: "Respondió en 3 días. Volvimos en 11.",
-      testimonialImage: "https://i.ibb.co/cHg61QK/Persona-1.webp",
+      testimonialText: "Mi patrón era 'rechazo activo'. Apliqué la técnica específica y en 8 días me escribió.",
     },
+    note: "DESCUBRIMIENTO: Cada patrón de ruptura requiere una aproximación psicológica diferente."
   },
+
   {
     id: 5,
-    question: "¿CUÁNTO TIEMPO ESTUVIERON JUNTOS?",
-    description: "(La duración de la relación influye directamente en tu estrategia)",
-    options: ["Más de 3 años", "De 1 a 3 años", "De 6 meses a 1 año", "Menos de 6 meses"],
+    question: "ANALIZANDO INTENSIDAD EMOCIONAL...",
+    description: "La duración de la relación determina la profundidad del vínculo emocional y qué técnicas de reconexión usar.",
+    subtext: "DATO CRÍTICO #5 - ¿Cuánto tiempo estuvieron juntos?",
+    options: [
+      "Más de 3 años → Vínculo profundo establecido",
+      "1-3 años → Conexión emocional sólida", 
+      "6 meses-1 año → Atracción en desarrollo",
+      "Menos de 6 meses → Química inicial"
+    ],
+    elements: {
+      intensityMeter: true,
+      profileComplete: "65%",
+      bondAnalysis: true,
+    },
+    note: "INSIGHT: Relaciones más largas requieren técnicas de 'reactivación de memoria'. Más cortas necesitan 'intensificación de deseo'."
   },
+
   {
     id: 6,
-    question: "¿CUÁL FUE LA PARTE MÁS DOLOROSA DE LA RUPTURA?",
-    description: "(Identificar tu dolor principal es esencial para tu recuperación emocional y reconquista)",
+    question: "DETECTANDO TU PUNTO DE DOLOR PRINCIPAL...",
+    description: "Tu mayor sufrimiento revela qué necesitas sanar ANTES de aplicar cualquier técnica de reconquista.",
+    subtext: "DATO CRÍTICO #6 - ¿Cuál fue la parte más dolorosa?",
     options: {
       masculino: [
-        "😔 Lidiar con la soledad y el vacío",
-        "😢 La montaña rusa emocional: ira, tristeza, arrepentimiento",
-        "😐 Lidiar con recuerdos y memorias",
-        "💔 Imaginarla con otro hombre",
-        "🤔 Darme cuenta de que los planes que hicimos nunca se harán realidad",
-        "⚡ Otro",
+        "😔 La soledad y el vacío → Necesitas 'Protocolo de Autoconfianza'",
+        "😢 La montaña rusa emocional → Necesitas 'Estabilización Mental'",
+        "😐 Los recuerdos constantes → Necesitas 'Técnica de Reframe'",
+        "💔 Imaginarla con otro → Necesitas 'Estrategia de Diferenciación'",
+        "🤔 Los planes perdidos → Necesitas 'Visión de Futuro'",
+        "⚡ Otro → Requiere análisis personalizado"
       ],
       feminino: [
-        "😔 Lidiar con la soledad y el vacío",
-        "😢 La montaña rusa emocional: ira, tristeza, arrepentimiento",
-        "😐 Lidiar con recuerdos y memorias",
-        "💔 Imaginarlo con otra mujer",
-        "🤔 Darme cuenta de que los planes que hicimos nunca se harán realidad",
-        "⚡ Otro",
-      ],
+        "😔 La soledad y el vacío → Necesitas 'Protocolo de Autoconfianza'",
+        "😢 La montaña rusa emocional → Necesitas 'Estabilización Mental'", 
+        "😐 Los recuerdos constantes → Necesitas 'Técnica de Reframe'",
+        "💔 Imaginarlo con otra → Necesitas 'Estrategia de Diferenciación'",
+        "🤔 Los planes perdidos → Necesitas 'Visión de Futuro'",
+        "⚡ Otro → Requiere análisis personalizado"
+      ]
     },
     elements: {
-      profileAnalysis: "Personalizando tu estrategia emocional...",
-      profileComplete: "46%",
+      healingProtocol: true,
+      profileComplete: "75%",
+      protocolPreview: true,
     },
+    note: "CRUCIAL: Sin sanar tu herida principal, cualquier intento de reconquista fracasará."
   },
+
   {
     id: 7,
-    question: {
-      masculino: "¿CUÁL ES TU SITUACIÓN ACTUAL CON TU EX?",
-      feminino: "¿CUÁL ES TU SITUACIÓN ACTUAL CON TU EX?",
-    },
-    description: "(Esta información determinará tu punto de partida en el PLAN A)",
+    question: "EVALUANDO TU SITUACIÓN ACTUAL...",
+    description: "Tu situación presente define tu PUNTO DE PARTIDA y qué estrategia específica necesitas aplicar primero.",
+    subtext: "DATO CRÍTICO #7 - ¿Cuál es tu situación actual con tu ex?",
     options: {
       masculino: [
-        "🧐 Estoy aplicando contacto cero",
-        "😢 Ella me ignora completamente",
-        "❌ Me ha bloqueado en todas las redes sociales",
-        "🤝 Hablamos solo de cosas necesarias",
-        "🤔 Charlamos de vez en cuando",
-        "😌 Seguimos siendo amigos",
-        "🔥 Hemos tenido encuentros íntimos después de la ruptura",
+        "🧐 Contacto cero → Estrategia de 'Ruptura del Silencio'",
+        "😢 Me ignora → Protocolo de 'Reactivación de Interés'", 
+        "❌ Me bloqueó → Técnica de 'Acceso Indirecto'",
+        "🤝 Solo temas necesarios → Método de 'Escalada Emocional'",
+        "🤔 Charlamos a veces → Sistema de 'Diferenciación'",
+        "😌 Somos 'amigos' → Estrategia de 'Ruptura de Patrón'",
+        "🔥 Encuentros íntimos → Protocolo de 'Definición de Relación'"
       ],
       feminino: [
-        "🧐 Estoy aplicando contacto cero",
-        "😢 Él me ignora completamente",
-        "❌ Me ha bloqueado en todas las redes sociales",
-        "🤝 Hablamos solo de cosas necesarias",
-        "🤔 Charlamos de vez en cuando",
-        "😌 Seguimos siendo amigos",
-        "🔥 Hemos tenido encuentros íntimos después de la ruptura",
-      ],
+        "🧐 Contacto cero → Estrategia de 'Ruptura del Silencio'",
+        "😢 Me ignora → Protocolo de 'Reactivación de Interés'",
+        "❌ Me bloqueó → Técnica de 'Acceso Indirecto'", 
+        "🤝 Solo temas necesarios → Método de 'Escalada Emocional'",
+        "🤔 Charlamos a veces → Sistema de 'Diferenciación'",
+        "😌 Somos 'amigos' → Estrategia de 'Ruptura de Patrón'",
+        "🔥 Encuentros íntimos → Protocolo de 'Definición de Relación'"
+      ]
     },
     elements: {
-      profileComplete: "62%",
-      testimonialImage: "",
+      strategyMapping: true,
+      profileComplete: "85%",
+      situationAnalysis: true,
     },
+    note: "REVELACIÓN: Cada situación tiene una estrategia específica con 87% de efectividad."
   },
+
   {
     id: 8,
-    question: {
-      masculino: "¿ELLA YA ESTÁ SALIENDO CON OTRA PERSONA?",
-      feminino: "¿ÉL YA ESTÁ SALIENDO CON OTRA PERSONA?",
-    },
-    description: "(Esta información es crucial para definir tu enfoque estratégico)",
+    question: "ANALIZANDO FACTOR DE COMPETENCIA...",
+    description: "Esta información determina la URGENCIA de tu estrategia y qué técnicas avanzadas necesitarás.",
+    subtext: "DATO CRÍTICO #8 - ¿Ya está saliendo con otra persona?",
     options: {
       masculino: [
-        "🚫 No, está soltera",
-        "🤔 No estoy seguro",
-        "😔 Sí, está saliendo con alguien",
-        "💔 Sí, tiene una relación seria",
-        "🔄 Está saliendo con varias personas",
+        "🚫 Está soltera → Estrategia estándar aplicable",
+        "🤔 No estoy seguro → Protocolo de investigación discreta",
+        "😔 Saliendo casual → Técnica de diferenciación intensiva", 
+        "💔 Relación seria → Estrategia avanzada de largo plazo",
+        "🔄 Varias personas → Protocolo de valor único"
       ],
       feminino: [
-        "🚫 No, está soltero",
-        "🤔 No estoy segura",
-        "😔 Sí, está saliendo con alguien",
-        "💔 Sí, tiene una relación seria",
-        "🔄 Está saliendo con varias personas",
-      ],
+        "🚫 Está soltero → Estrategia estándar aplicable",
+        "🤔 No estoy segura → Protocolo de investigación discreta",
+        "😔 Saliendo casual → Técnica de diferenciación intensiva",
+        "💔 Relación seria → Estrategia avanzada de largo plazo", 
+        "🔄 Varias personas → Protocolo de valor único"
+      ]
     },
     bonusUnlock: {
       id: 2,
-      title: "PROTOCOLO DE EMERGENCIA 72H",
+      title: "PROTOCOLO ANTI-COMPETENCIA",
       value: 37,
-      description: "Qué hacer cuando todo parece perdido y tienes 72 horas para actuar.",
+      description: "Cómo destacar cuando hay terceras personas involucradas.",
     },
     elements: {
-      profileComplete: "77%",
-      testimonialDisplay: true,
-      testimonialName: "Diego L., 36 años",
-      testimonialText: "Estaba con otro tipo. En 16 días lo dejó por mí.",
-      testimonialImage: "https://i.ibb.co/YB3pHrV0/prova-pv-inicial.webp",
+      competitionAnalysis: true,
+      profileComplete: "90%",
+      urgencyMeter: true,
     },
+    note: "DATO CLAVE: El 67% de reconquistas exitosas ocurrieron INCLUSO con competencia presente."
   },
+
   {
     id: 9,
-    question: {
-      masculino: "¿CUÁNTO QUIERES RECUPERARLA?",
-      feminino: "¿CUÁNTO QUIERES RECUPERARLO?",
-    },
-    description: "(Tu nivel de compromiso determinará tu éxito)",
-    subtext: "El 91% de las personas que seleccionaron nivel 4 reconquistaron a su ex en menos de 21 días usando el PLAN A.",
-    options: ["1 - No estoy seguro", "2 - Me lo estoy pensando", "3 - Lo quiero bastante", "4 - Lo quiero muchísimo"],
-    note: "Solo trabajo con personas decididas a transformar su situación amorosa. El PLAN A fue desarrollado para quien está preparado para actuar.",
+    question: "MIDIENDO TU NIVEL DE COMPROMISO...",
+    description: "Tu nivel de determinación define qué tan profundo será tu plan personalizado y qué resultados puedes esperar.",
+    subtext: "DATO FINAL - ¿Cuánto quieres recuperar esta relación?",
+    options: [
+      "1 - No estoy seguro → Plan básico de exploración",
+      "2 - Lo estoy considerando → Plan intermedio de evaluación", 
+      "3 - Lo quiero bastante → Plan avanzado de reconquista",
+      "4 - Lo quiero con toda mi alma → Plan INTENSIVO personalizado"
+    ],
+    note: "ESTADÍSTICA: El 91% que eligió nivel 4 logró reconquistar usando nuestro sistema personalizado.",
     elements: {
-      thermometer: true,
-      profileComplete: "85%",
+      commitmentThermometer: true,
+      profileComplete: "95%",
+      successPredictor: true,
     },
+    subtext2: "Tu nivel determinará la intensidad y efectividad de tu estrategia personalizada."
   },
+
   {
     id: 10,
-    question: "EXPERTO ANALIZANDO TU CASO...",
-    description: "Espera mientras analizo tus respuestas para crear tu estrategia personalizada.",
+    question: "GENERANDO TU DIAGNÓSTICO PERSONALIZADO...",
+    description: "Analizando todos tus datos para crear tu estrategia específica de reconquista...",
     options: [],
     autoAdvance: true,
     elements: {
       expertPhoto: true,
       expertImage: "https://comprarplanseguro.shop/wp-content/uploads/2025/09/Generated-Image-September-07_-2025-12_00AM-_1_-e1757389439336.webp",
-      autoMessage: "Basándome en 7 años de experiencia ayudando a personas como tú...",
-      profileComplete: "90%",
+      autoMessage: "Procesando 9 variables críticas de tu caso...",
+      profileComplete: "100%",
+      diagnosticGeneration: true,
     },
+    note: "Este diagnóstico se basa en el análisis de 12,000 casos similares al tuyo."
   },
 
-  // === QUESTÕES 11-13 TRANSFORMADAS ===
-  
   {
     id: 11,
-    question: "PRIMER DESCUBRIMIENTO PERSONALIZADO PARA TU CASO",
-    description: "Baseado en tu situación específica, he identificado el error #1 que está arruinando tus chances de reconquista.",
+    question: "TU DIAGNÓSTICO PERSONALIZADO ESTÁ LISTO",
+    description: "Basándome en tu análisis completo, he identificado el ERROR PRINCIPAL que está saboteando tus posibilidades de reconquista.",
     subtext: () => getPersonalizedFirstInsight(),
-    options: ["DESCUBRIR MI ERROR #1"],
+    options: ["VER MI ERROR PRINCIPAL"],
     elements: {
       expertPhoto: true,
       expertImage: "https://comprarplanseguro.shop/wp-content/uploads/2025/09/Generated-Image-September-07_-2025-12_00AM-_1_-e1757389439336.webp",
       personalizedInsight: true,
-      profileComplete: "70%",
-      badge: "INSIGHT PERSONALIZADO",
+      profileComplete: "100%",
+      badge: "DIAGNÓSTICO COMPLETO",
       analysisIcon: true,
     },
+    note: "Este diagnóstico se basa en el cruce de todas las variables de tu caso específico."
   },
   
   {
     id: 12,
-    question: "TU PRIMERA TÉCNICA PERSONALIZADA - FUNCIONA EN 72H",
-    description: () => getPersonalizedTechnique(),
-    subtext: "Esta técnica está diseñada específicamente para tu situación y tiene 89% de efectividad en casos similares.",
-    options: ["APLICAR ESTA TÉCNICA AHORA"],
+    question: "TU PRIMERA ESTRATEGIA PERSONALIZADA",
+    description: "He diseñado una técnica específica para TU situación exacta. Esta técnica tiene 89% de efectividad en casos como el tuyo.",
+    subtext: () => getPersonalizedTechnique(),
+    options: ["QUIERO VER EL MÉTODO COMPLETO"],
     elements: {
       personalizedTechnique: true,
       situationSpecific: true,
-      profileComplete: "85%",
+      profileComplete: "100%",
       badge: "TÉCNICA ESPECÍFICA", 
-      timer: "Aplicar en 48-72h",
+      timer: "Aplicar en las próximas 48-72h",
+      successRate: "89% de efectividad"
     },
+    note: "Esta es SOLO la primera técnica. El método completo incluye 21 estrategias más."
   },
   
   {
     id: 13,
-    question: "TU PLAN PERSONALIZADO DE 7 DÍAS ESTÁ LISTO",
-    description: "He creado tu estrategia específica basada en todos tus datos. Estos son los primeros 7 pasos que necesitas seguir.",
+    question: "PRESENTANDO: EL PLAN A COMPLETO",
+    description: "Basándome en 7 años ayudando a más de 12,000 personas como tú, he desarrollado el PLAN A: el método más efectivo de reconquista personalizada.",
     subtext: () => getPersonalized7DayPlan(),
-    options: ["VER LOS PRÓXIMOS 14 PASOS DEL PLAN A"],
-    note: "Esto es solo el 30% del método completo. Los próximos 70% incluyen las técnicas avanzadas y scripts exactos.",
+    options: ["QUIERO ACCEDER AL PLAN A COMPLETO"],
+    note: "Lo que acabas de ver son solo los PRIMEROS 7 pasos del Plan A. El método completo incluye 21 días de estrategias específicas para tu caso.",
     elements: {
-      sevenDayPlan: true,
+      planAReveal: true,
       profileComplete: "100%",
       planPreview: true,
       continuationTease: true,
       planLayout: true,
       checklist: true,
+      badge: "PLAN A - MÉTODO COMPLETO",
+      methodIntro: true,
     },
+    finalReveal: {
+      title: "EL PLAN A INCLUYE:",
+      features: [
+        "✅ 21 días de estrategias específicas para tu caso",
+        "✅ Scripts exactos para cada situación posible", 
+        "✅ Técnicas avanzadas de psicología de reconquista",
+        "✅ Plan B de emergencia si algo sale mal",
+        "✅ Soporte personalizado durante todo el proceso",
+        "✅ Garantía de 30 días o devuelvo tu dinero"
+      ],
+      testimonial: () => getPersonalizedTestimonial(),
+      urgency: "Solo 23 spots disponibles hoy para acceso completo",
+      socialProof: "3,847 personas han usado el Plan A con éxito"
+    }
   }
 ]
 
@@ -498,9 +563,9 @@ export const bonuses = [
   },
   {
     id: 2,
-    title: "PROTOCOLO DE EMERGENCIA 72H",
+    title: "PROTOCOLO ANTI-COMPETENCIA",
     value: 37,
-    description: "Qué hacer cuando todo parece perdido y tienes 72 horas para actuar.",
+    description: "Cómo destacar cuando hay terceras personas involucradas.",
     details: ["✓ Plan de Acción Inmediata", "✓ Independencia Emocional", "✓ Comunicación Magnética"],
   },
 ]
@@ -541,7 +606,7 @@ export const socialProofMessages = [
   "-",
 ]
 
-// Função utilitaria para personalizar textos basados en el género
+// Función utilitaria para personalizar textos basados en el género
 export function getPersonalizedContent(content, gender) {
   if (typeof content === "string") {
     return content
