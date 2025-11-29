@@ -255,12 +255,12 @@ export default function ResultPageExplosive() {
                   <div className="bg-gray-800 rounded-xl p-6 border border-gray-700">
                     <div className="flex items-start space-x-4">
                       <img 
-                        src="https://comprarplanseguro.shop/wp-content/uploads/2025/08/Captura-de-Tela-2025-08-08-as-19.01.05.png" 
+                        src="https://i.ibb.co/cK6m4D9g/Generatedimage-1764386997197.png" 
                         alt="Testimonio" 
                         className="w-12 h-12 rounded-full object-cover flex-shrink-0"
                       />
                       <div className="flex-1">
-                        <h4 className="text-white font-bold mobile-info-text mb-2 break-words">Miguel Á., 33 años - Colombia</h4>
+                        <h4 className="text-white font-bold mobile-info-text mb-2 break-words">Miguel D., 33 años - Colombia</h4>
                         <p className="text-gray-300 mobile-small-text mb-3 break-words">
                           <span className="text-yellow-400">Situación:</span> Contacto cero desde hace 2 meses
                         </p>
@@ -281,7 +281,7 @@ export default function ResultPageExplosive() {
                   <div className="bg-gray-800 rounded-xl p-6 border border-gray-700">
                     <div className="flex items-start space-x-4">
                       <img 
-                        src="https://nutricaoalimentos.shop/wp-content/uploads/2025/09/lg-9xvta-canva-couple-in-love-mafv-z4mya0.jpg" 
+                        src="https://i.ibb.co/gZDzThc8/Generatedimage-1764386812007.png" 
                         alt="Testimonio" 
                         className="w-12 h-12 rounded-full object-cover flex-shrink-0"
                       />
@@ -307,7 +307,7 @@ export default function ResultPageExplosive() {
                   <div className="bg-gray-800 rounded-xl p-6 border border-gray-700">
                     <div className="flex items-start space-x-4">
                       <img 
-                        src="https://comprarplanseguro.shop/wp-content/uploads/2025/08/Captura-de-Tela-2025-08-08-as-19.01.05.png" 
+                        src="https://i.ibb.co/WNshMjyp/Editedimage-1764387116471.png" 
                         alt="Testimonio" 
                         className="w-12 h-12 rounded-full object-cover flex-shrink-0"
                       />
@@ -333,7 +333,7 @@ export default function ResultPageExplosive() {
                   <div className="bg-gray-800 rounded-xl p-6 border border-gray-700">
                     <div className="flex items-start space-x-4">
                       <img 
-                        src="https://nutricaoalimentos.shop/wp-content/uploads/2025/09/lg-9xvta-canva-couple-in-love-mafv-z4mya0.jpg" 
+                        src="https://i.ibb.co/bZLj1vF/Generatedimage-1764387030465.png" 
                         alt="Testimonio" 
                         className="w-12 h-12 rounded-full object-cover flex-shrink-0"
                       />
