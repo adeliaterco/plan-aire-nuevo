@@ -55,7 +55,8 @@ export default function QuizStep() {
   const [userGender, setUserGender] = useState<string>("")
 
   const currentStep = quizSteps[step - 1]
-  const progress = (step / 12) * 100
+  // ✅ CORRIGIDO: (step / 13) em vez de (step / 12)
+  const progress = (step / 13) * 100
 
   useEffect(() => {
     // Cargar datos guardados
@@ -63,11 +64,15 @@ export default function QuizStep() {
     const savedBonuses = localStorage.getItem("unlockedBonuses")
     const savedValue = localStorage.getItem("totalValue")
     const savedGender = localStorage.getItem("userGender")
+    const savedAnswers = localStorage.getItem("quizAnswers")
 
     if (saved) setQuizData(JSON.parse(saved))
     if (savedBonuses) setUnlockedBonuses(JSON.parse(savedBonuses))
     if (savedValue) setTotalValue(Number.parseInt(savedValue))
     if (savedGender) setUserGender(savedGender)
+    if (savedAnswers) {
+      window.quizAnswers = JSON.parse(savedAnswers)
+    }
 
     // Retraso de animación
     setTimeout(() => {
@@ -134,6 +139,12 @@ export default function QuizStep() {
     setQuizData(newQuizData)
     localStorage.setItem("quizData", JSON.stringify(newQuizData))
 
+    // Guardar en quizAnswers también
+    const answers = window.quizAnswers || {}
+    answers[`question${step}`] = selectedAnswer
+    window.quizAnswers = answers
+    localStorage.setItem("quizAnswers", JSON.stringify(answers))
+
     // Mostrar análisis para ciertos pasos
     if (currentStep?.elements?.analysisText || currentStep?.elements?.profileAnalysis) {
       setShowAnalysis(true)
@@ -195,11 +206,12 @@ export default function QuizStep() {
       return
     }
 
-    if (step < 12) {
+    // ✅ CORRIGIDO: step < 13 em vez de step < 12
+    if (step < 13) {
       router.push(`/quiz/${step + 1}${utmString}`)
     } else {
       enviarEvento('concluiu_quiz', {
-        total_etapas_completadas: 12,
+        total_etapas_completadas: 13,
         total_bonus_desbloqueados: unlockedBonuses.length
       });
       
@@ -227,7 +239,8 @@ export default function QuizStep() {
       utmString = '?' + utmParams.toString();
     }
     
-    if (step < 12) {
+    // ✅ CORRIGIDO: step < 13 em vez de step < 12
+    if (step < 13) {
       router.push(`/quiz/${step + 1}${utmString}`)
     } else {
       router.push(`/resultado${utmString}`)
@@ -288,6 +301,22 @@ export default function QuizStep() {
     return getPersonalizedContent(currentStep.question, userGender)
   }
 
+  const getPersonalizedDescription = () => {
+    const desc = currentStep.description
+    if (typeof desc === 'function') {
+      return desc()
+    }
+    return getPersonalizedContent(desc, userGender)
+  }
+
+  const getPersonalizedSubtext = () => {
+    const subtext = currentStep.subtext
+    if (typeof subtext === 'function') {
+      return subtext()
+    }
+    return getPersonalizedContent(subtext, userGender)
+  }
+
   const getPersonalizedOptions = () => {
     const options = getPersonalizedContent(currentStep.options, userGender)
     return Array.isArray(options) ? options : currentStep.options
@@ -334,7 +363,8 @@ export default function QuizStep() {
 
           <div className="flex justify-between items-center">
             <p className="text-white text-sm">
-              Etapa {step} de 12 • {Math.round(progress)}% completado
+              {/* ✅ CORRIGIDO: "de 13" em vez de "de 12" */}
+              Etapa {step} de 13 • {Math.round(progress)}% completado
             </p>
             {currentStep?.elements?.profileComplete && (
               <p className="text-green-400 text-sm font-semibold">
@@ -345,7 +375,7 @@ export default function QuizStep() {
         </div>
 
         {/* 🔥 DEPOIMENTOS OTIMIZADOS PARA MOBILE */}
-        {currentStep?.elements?.testimonialDisplay && currentStep?.elements?.testimonialText && (
+        {currentStep?.elements?.testimonialDisplay && (currentStep?.elements?.testimonialText || currentStep?.elements?.testimonialData) && (
           <motion.div 
             initial={{ opacity: 0, y: 20 }} 
             animate={{ opacity: 1, y: 0 }} 
@@ -359,10 +389,10 @@ export default function QuizStep() {
                   <div className="flex items-center space-x-3">
                     {/* Avatar */}
                     <div className="flex-shrink-0">
-                      {currentStep.elements.testimonialImage ? (
+                      {currentStep.elements.testimonialImage || (currentStep.elements.testimonialData && currentStep.elements.testimonialData().image) ? (
                         <motion.img
-                          src={currentStep.elements.testimonialImage}
-                          alt={currentStep.elements.testimonialName || "Cliente"}
+                          src={currentStep.elements.testimonialImage || (currentStep.elements.testimonialData && currentStep.elements.testimonialData().image)}
+                          alt={currentStep.elements.testimonialName || (currentStep.elements.testimonialData && currentStep.elements.testimonialData().name) || "Cliente"}
                           className="w-12 h-12 sm:w-14 sm:h-14 rounded-full object-cover border-2 border-yellow-500 shadow-md"
                           animate={{
                             y: [0, -2, 0],
@@ -383,11 +413,11 @@ export default function QuizStep() {
 
                     {/* Nome e estrelas */}
                     <div className="flex-1 min-w-0">
-                      {currentStep.elements.testimonialName && (
+                      {currentStep.elements.testimonialName || (currentStep.elements.testimonialData && currentStep.elements.testimonialData().name) ? (
                         <p className="text-yellow-400 font-bold text-sm sm:text-base truncate">
-                          {currentStep.elements.testimonialName}
+                          {currentStep.elements.testimonialName || (currentStep.elements.testimonialData && currentStep.elements.testimonialData().name)}
                         </p>
-                      )}
+                      ) : null}
                       
                       {/* Estrelas compactas */}
                       <div className="flex items-center gap-1 mt-1">
@@ -413,7 +443,7 @@ export default function QuizStep() {
                     transition={{ delay: 0.5 }}
                   >
                     <p className="text-white text-sm sm:text-base leading-relaxed italic">
-                      "{currentStep.elements.testimonialText}"
+                      "{currentStep.elements.testimonialText || (currentStep.elements.testimonialData && currentStep.elements.testimonialData().text)}"
                     </p>
                   </motion.div>
 
@@ -499,7 +529,7 @@ export default function QuizStep() {
                 </motion.div>
               )}
 
-              {/* Final reveal para step 12 */}
+              {/* Final reveal para step 13 */}
               {currentStep?.elements?.finalReveal && (
                 <motion.div
                   initial={{ opacity: 0, scale: 0.8 }}
@@ -549,7 +579,7 @@ export default function QuizStep() {
                 </motion.div>
               )}
 
-              {/* Foto de experto para el paso 11 */}
+              {/* Foto de experto para el paso 11 y 12 */}
               {currentStep?.elements?.expertPhoto && !currentStep?.autoAdvance && (
                 <div className="flex justify-center mb-6">
                   {currentStep?.elements?.expertImage ? (
@@ -597,12 +627,12 @@ export default function QuizStep() {
                     {getPersonalizedQuestion()}
                   </h2>
 
-                  {currentStep.subtext && (
-                    <p className="text-orange-200 text-center mb-6 text-base sm:text-lg font-medium">{currentStep.subtext}</p>
+                  {getPersonalizedSubtext() && (
+                    <p className="text-orange-200 text-center mb-6 text-base sm:text-lg font-medium whitespace-pre-wrap">{getPersonalizedSubtext()}</p>
                   )}
 
-                  {currentStep.description && (
-                    <p className="text-gray-300 text-center mb-8 text-sm sm:text-base">{currentStep.description}</p>
+                  {getPersonalizedDescription() && (
+                    <p className="text-gray-300 text-center mb-8 text-sm sm:text-base whitespace-pre-wrap">{getPersonalizedDescription()}</p>
                   )}
 
                   {/* 🆕 NOVA SEÇÃO: Evidência Científica - APENAS ETAPA 11 */}
@@ -706,7 +736,7 @@ export default function QuizStep() {
                               </div>
 
                               <div
-                                className={`w-4 h-4 sm:w-5 sm:h-5 rounded-full border-2 mr-3 sm:mr-4 flex items-center justify-center transition-all ${
+                                className={`w-4 h-4 sm:w-5 sm:h-5 rounded-full border-2 mr-3 sm:mr-4 flex items-center justify-center transition-all flex-shrink-0 ${
                                   selectedAnswer === option ? "border-white bg-white" : "border-gray-400 bg-gray-700"
                                 }`}
                               >
@@ -770,7 +800,7 @@ export default function QuizStep() {
                         size="lg"
                         className="bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-600 hover:to-red-700 text-white font-bold py-3 px-6 sm:py-4 sm:px-8 rounded-full shadow-lg w-full sm:w-auto text-sm sm:text-base"
                       >
-                        {step === 12 ? "Ver Resultado" : "Siguiente Pregunta"}
+                        {step === 13 ? "Ver Resultado" : "Siguiente Pregunta"}
                         <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 ml-2" />
                       </Button>
                     </motion.div>
