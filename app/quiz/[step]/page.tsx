@@ -191,11 +191,11 @@ export default function QuizStep() {
       setUnlockedBonuses(newUnlockedBonuses)
       setTotalValue(newTotalValue)
 
-      // Personalizar bonificación basada en el género
+      // ✅ CORRIGIDO: Personalização mais segura do bonus
       const personalizedBonus = {
         ...currentStep.bonusUnlock,
-        title: getPersonalizedContent(currentStep.bonusUnlock.title, userGender),
-        description: getPersonalizedContent(currentStep.bonusUnlock.description, userGender),
+        title: currentStep.bonusUnlock?.title || 'Bonus desbloqueado',
+        description: currentStep.bonusUnlock?.description || 'Descripción del bonus',
       }
       setNewBonus(personalizedBonus)
 
@@ -304,7 +304,12 @@ export default function QuizStep() {
   const getPersonalizedDescription = () => {
     const desc = currentStep.description
     if (typeof desc === 'function') {
-      return desc()
+      try {
+        return desc()
+      } catch (error) {
+        console.error('Erro ao executar função de description:', error)
+        return ''
+      }
     }
     return getPersonalizedContent(desc, userGender)
   }
@@ -312,7 +317,12 @@ export default function QuizStep() {
   const getPersonalizedSubtext = () => {
     const subtext = currentStep.subtext
     if (typeof subtext === 'function') {
-      return subtext()
+      try {
+        return subtext()
+      } catch (error) {
+        console.error('Erro ao executar função de subtext:', error)
+        return ''
+      }
     }
     return getPersonalizedContent(subtext, userGender)
   }
@@ -627,7 +637,21 @@ export default function QuizStep() {
                   )}
 
                   {getPersonalizedDescription() && (
-                    <p className="text-gray-300 text-center mb-8 text-sm sm:text-base whitespace-pre-wrap">{getPersonalizedDescription()}</p>
+                    <div className="text-gray-300 text-center mb-8 text-sm sm:text-base whitespace-pre-wrap">
+                      {/* ✅ RENDERIZAÇÃO ESPECIAL PARA ETAPAS 12 e 13 com técnicas personalizadas */}
+                      {(step === 12 || step === 13) ? (
+                        <div className="space-y-6">
+                          {/* Separar conteúdo por seções */}
+                          {getPersonalizedDescription().split('---').map((section, index) => (
+                            <div key={index} className="p-4 bg-gray-800/50 rounded-lg border border-gray-600">
+                              <div className="text-left">{section.trim()}</div>
+                            </div>
+                          ))}
+                        </div>
+                      ) : (
+                        getPersonalizedDescription()
+                      )}
+                    </div>
                   )}
 
                   {/* 🆕 NOVA SEÇÃO: Evidência Científica - APENAS ETAPA 11 */}
@@ -769,6 +793,17 @@ export default function QuizStep() {
                       className="mt-6 text-center text-amber-300 bg-amber-900/30 p-4 rounded-lg border border-amber-600"
                     >
                       <p className="font-medium text-sm sm:text-base">{currentStep.note}</p>
+                    </motion.div>
+                  )}
+
+                  {currentStep.guarantee && (
+                    <motion.div
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ delay: 0.9 }}
+                      className="mt-6 text-center text-green-300 bg-green-900/30 p-4 rounded-lg border border-green-600"
+                    >
+                      <p className="font-medium text-sm sm:text-base">{currentStep.guarantee}</p>
                     </motion.div>
                   )}
 

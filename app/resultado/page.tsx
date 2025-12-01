@@ -563,7 +563,7 @@ export default function ResultPageExplosive() {
                       <p className="text-white mobile-stats-text break-words">Días promedio</p>
                     </div>
                     <div>
-                      <div className="mobile-stats-number font-bold text-orange-400 mb-1">2.847</div>
+                      <div className="mobile-stats-number font-bold text-orange-400 mb-1">3.847</div>
                       <p className="text-white mobile-stats-text break-words">Éxitos este año</p>
                     </div>
                   </div>
