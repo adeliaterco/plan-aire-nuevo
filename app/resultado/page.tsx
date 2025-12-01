@@ -43,7 +43,7 @@ export default function ResultPageExplosive() {
       setRecentBuyers(prev => Math.min(prev + Math.floor(Math.random() * 2) + 1, 31))
     }, 35000)
 
-    // Evento de visualização
+    // ✅ GA4 EVENT: Viu resultado otimizado
     enviarEvento("viu_resultado_otimizado_v2", {
       timestamp: new Date().toISOString(),
       user_gender: savedGender
@@ -52,9 +52,12 @@ export default function ResultPageExplosive() {
     // Iniciar o contador de tempo na página
     startTimeRef.current = Date.now()
 
+    // Carregar script Vturb
+    loadVTurbScript()
+
     return () => {
       clearInterval(interval)
-      // Evento de tempo na página ao sair
+      // ✅ GA4 EVENT: Tempo na página ao sair
       const timeSpent = (Date.now() - startTimeRef.current) / 1000
       enviarEvento('tempo_pagina_resultado_v2', {
         tempo_segundos: timeSpent,
@@ -63,7 +66,7 @@ export default function ResultPageExplosive() {
     }
   }, [])
 
-  // ===== PROGRESSÃO AUTOMÁTICA DE STEPS (AJUSTADA PARA NOVA ORDEM) =====
+  // ===== PROGRESSÃO AUTOMÁTICA DE STEPS (6 SEGUNDOS CADA) =====
   useEffect(() => {
     const timers = [
       setTimeout(() => setCurrentStep(2), 6000),   // 6s
@@ -75,6 +78,16 @@ export default function ResultPageExplosive() {
 
     return () => timers.forEach(clearTimeout)
   }, [])
+
+  // ===== CARREGAR SCRIPT VTURB =====
+  const loadVTurbScript = () => {
+    if (!document.querySelector('script[src*="69261bb488d49382e130c0a6"]')) {
+      const script = document.createElement("script")
+      script.src = "https://scripts.converteai.net/15be01a4-4462-4736-aeb9-b95eda21b8b8/players/69261bb488d49382e130c0a6/v4/player.js"
+      script.async = true
+      document.head.appendChild(script)
+    }
+  }
 
   // ===== FUNÇÕES DE PERSONALIZAÇÃO =====
   const getPronoun = () => userGender === "FEMININO" ? "él" : "ella"
@@ -99,7 +112,6 @@ export default function ResultPageExplosive() {
     return timeframe
   }
 
-  // ===== NOVA FUNÇÃO: INSIGHT PERSONALIZADO =====
   const getPersonalizedFirstInsight = () => {
     const situation = getPersonalizedSituation()
     
@@ -127,9 +139,9 @@ export default function ResultPageExplosive() {
 
   // ===== FUNÇÃO DE COMPRA OTIMIZADA =====
   const handlePurchase = (position = "principal") => {
-    // Calcular tempo até compra
     const timeToAction = (Date.now() - startTimeRef.current) / 1000
     
+    // ✅ GA4 EVENT: Clicou comprar
     enviarEvento("clicou_comprar_otimizado_v2", {
       posicao: position,
       step_atual: currentStep,
@@ -140,7 +152,7 @@ export default function ResultPageExplosive() {
       conversao: true
     })
     
-    // Evento de conversão no tracking de tempo
+    // ✅ GA4 EVENT: Tempo na página com conversão
     enviarEvento('tempo_pagina_resultado_v2', {
       tempo_segundos: timeToAction,
       conversao: true
@@ -149,6 +161,13 @@ export default function ResultPageExplosive() {
     setTimeout(() => {
       window.open("https://pay.hotmart.com/F100142422S?off=efckjoa7&checkoutMode=10", "_blank")
     }, 100)
+  }
+
+  // ===== FEEDBACK TÁTIL =====
+  const handleTouchFeedback = () => {
+    if (typeof navigator !== 'undefined' && 'vibrate' in navigator) {
+      navigator.vibrate(10)
+    }
   }
 
   return (
@@ -177,7 +196,7 @@ export default function ResultPageExplosive() {
               </p>
             </motion.div>
 
-            {/* NOVA SEÇÃO: ERROR ESPECÍFICO */}
+            {/* ERROR ESPECÍFICO */}
             <div className="bg-red-900/30 rounded-xl p-4 mb-8 border-2 border-red-500/50">
               <h3 className="text-red-400 font-bold mobile-subsection-title mb-3 break-words">
                 ❌ TU ERROR PRINCIPAL DETECTADO:
@@ -192,6 +211,7 @@ export default function ResultPageExplosive() {
               </div>
             </div>
 
+            {/* ANÁLISIS DE SITUACIÓN */}
             <div className="bg-gray-800/80 rounded-xl p-4 mb-8 border-2 border-green-500/50">
               <h3 className="text-green-400 font-bold mobile-subsection-title mb-3 break-words">
                 📊 TU SITUACIÓN ANALIZADA:
@@ -203,6 +223,59 @@ export default function ResultPageExplosive() {
                 <p>→ <strong>Tasa de éxito estimada:</strong> <span className="text-green-400 font-bold">89%</span> para tu caso específico</p>
               </div>
             </div>
+          </div>
+        </div>
+
+        {/* ===== SECIÓN 1.5: VÍDEO PRINCIPAL CON VTURB ===== */}
+        <div className="mobile-padding bg-gradient-to-r from-gray-900 to-black w-full">
+          <div className="max-w-4xl mx-auto w-full">
+            <div className="text-center mb-6">
+              <h2 className="mobile-section-title font-bold text-white mb-4 max-w-full break-words">
+                🎯 <span className="text-orange-400">DESCUBRE</span> LA ESTRATEGIA QUE FUNCIONA
+              </h2>
+              
+              <div className="max-w-2xl mx-auto mb-6 w-full">
+                <p className="mobile-description text-gray-300 mb-4 break-words">
+                  Mira este video:
+                </p>
+              </div>
+            </div>
+
+            {/* VSL CENTRALIZADA COM VTURB */}
+            <div className="flex justify-center mb-6 sm:mb-8 w-full">
+              <div className="w-full max-w-3xl">
+                <div className="relative bg-black rounded-xl sm:rounded-2xl mobile-video-padding mobile-border-orange shadow-2xl w-full">
+                  <div className="absolute inset-0 bg-gradient-to-r from-orange-600/20 to-red-600/20 rounded-xl sm:rounded-2xl animate-pulse"></div>
+                  <div className="relative z-10 w-full mobile-video-container">
+                    <vturb-smartplayer 
+                      id="vid-69261bb488d49382e130c0a6" 
+                      className="mobile-vturb-player"
+                    ></vturb-smartplayer>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* BARRA DE PROGRESSO CON COPY CONVERSIVO */}
+            <AnimatePresence>
+              {currentStep < 3 && (
+                <div className="text-center mb-8 max-w-md mx-auto">
+                  <div className="text-gray-300 mobile-small-text mb-3 break-words font-semibold">
+                    ⏳ ANALIZANDO TU CASO Y DESBLOQUEANDO TU PLAN PERSONALIZADO...
+                  </div>
+                  <div className="w-full bg-gray-700 rounded-full h-3 max-w-md mx-auto overflow-hidden border border-orange-500">
+                    <motion.div
+                      className="bg-gradient-to-r from-orange-500 to-red-500 h-3 rounded-full"
+                      animate={{ width: ["0%", "100%"] }}
+                      transition={{ duration: 6, ease: "linear" }}
+                    />
+                  </div>
+                  <p className="text-gray-400 mobile-small-text mt-3 break-words italic">
+                    Esto garantiza que recibas exactamente lo que necesitas para tu situación...
+                  </p>
+                </div>
+              )}
+            </AnimatePresence>
           </div>
         </div>
 
@@ -283,28 +356,10 @@ export default function ResultPageExplosive() {
                 )}
               </AnimatePresence>
             </div>
-
-            {/* Progress bar */}
-            <AnimatePresence>
-              {currentStep < 3 && (
-                <div className="text-center mb-8">
-                  <div className="text-gray-400 mobile-small-text mb-2 break-words">
-                    Liberando próximo protocolo en...
-                  </div>
-                  <div className="w-full bg-gray-700 rounded-full h-2 max-w-md mx-auto">
-                    <motion.div
-                      className="bg-gradient-to-r from-orange-500 to-red-500 h-2 rounded-full"
-                      animate={{ width: ["0%", "100%"] }}
-                      transition={{ duration: 6, ease: "linear" }}
-                    />
-                  </div>
-                </div>
-              )}
-            </AnimatePresence>
           </div>
         </div>
 
-        {/* ===== SEÇÃO 3: OFERTA IRRESISTÍVEL (MOVIDA PARA CIMA) ===== */}
+        {/* ===== SECIÓN 3: OFERTA IRRESISTÍVEL (MOVIDA PARA CIMA) ===== */}
         <AnimatePresence>
           {currentStep >= 3 && (
             <motion.div
@@ -379,6 +434,7 @@ export default function ResultPageExplosive() {
                         onClick={() => handlePurchase("oferta_principal")}
                         size="lg"
                         className="mobile-cta-offer"
+                        onTouchStart={handleTouchFeedback}
                       >
                         <Heart className="mobile-icon-size mr-2 flex-shrink-0" />
                         <div className="text-center break-words">
@@ -421,7 +477,7 @@ export default function ResultPageExplosive() {
           )}
         </AnimatePresence>
 
-        {/* ===== SEÇÃO 4: PROVA SOCIAL MELHORADA (APENAS 2 DEPOIMENTOS) ===== */}
+        {/* ===== SECIÓN 4: PROVA SOCIAL MELHORADA ===== */}
         <AnimatePresence>
           {currentStep >= 4 && (
             <motion.div
@@ -438,7 +494,7 @@ export default function ResultPageExplosive() {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
                   
-                  {/* CARD 1 - Miguel D. - CONTACTO CERO */}
+                  {/* CARD 1 - Miguel D. */}
                   <div className="bg-gray-800 rounded-xl p-6 border border-gray-700">
                     <div className="flex items-start space-x-4">
                       <img 
@@ -464,7 +520,7 @@ export default function ResultPageExplosive() {
                     </div>
                   </div>
 
-                  {/* CARD 2 - Gustavo R. - CON OTRO */}
+                  {/* CARD 2 - Gustavo R. */}
                   <div className="bg-gray-800 rounded-xl p-6 border border-gray-700">
                     <div className="flex items-start space-x-4">
                       <img 
@@ -478,7 +534,7 @@ export default function ResultPageExplosive() {
                           <span className="text-yellow-400">Situación:</span> {getPronoun()} estaba con otro/otra hace 3 meses
                         </p>
                         <p className="text-white mobile-info-text italic mb-3 break-words">
-                          "Mi situación parecía completamente perdida. {getPronoun()} llevaba 3 meses con esta otra persona. Pensé que había perdido para siempre. Pero el Protocolo Anti-Terceros del Plan A me mostró exactamente qué hacer. Día 1-7: diferenciación (hacerme valioso). Día 8-12: reactivación (recordarle lo que teníamos). Día 13: {getPronoun()} empezó a cuestionarse. Día 16: {getPronoun()} me escribió. <strong>Hoy dejó a ese tipo y estamos viviendo juntos. Fue pura estrategia psicológica.</strong>"
+                          "Mi situación parecía completamente perdida. {getPronoun()} llevaba 3 meses con esta otra persona. Pensé que había perdido para siempre. Pero el Protocolo Anti-Terceros del Plan A me mostró exactamente qué hacer. Día 1-7: diferenciación. Día 8-12: reactivación. Día 13: {getPronoun()} empezó a cuestionarse. Día 16: {getPronoun()} me escribió. <strong>Hoy dejó a ese tipo y estamos viviendo juntos.</strong>"
                         </p>
                         <div className="flex items-center mt-3">
                           {[...Array(5)].map((_, i) => (
@@ -492,7 +548,7 @@ export default function ResultPageExplosive() {
 
                 </div>
 
-                {/* NOVA SEÇÃO DE ESTATÍSTICAS CONCENTRADAS */}
+                {/* ESTATÍSTICAS */}
                 <div className="bg-gradient-to-r from-green-900/50 to-blue-900/50 rounded-xl p-6 mb-6 border border-green-500/30">
                   <h3 className="text-green-400 font-bold mobile-subsection-title text-center mb-4 break-words">
                     📊 RESULTADOS COMPROBADOS EN CASOS COMO EL TUYO:
@@ -517,7 +573,7 @@ export default function ResultPageExplosive() {
           )}
         </AnimatePresence>
 
-        {/* ===== SEÇÃO 5: TRATAMENTO DE OBJEÇÕES (NOVA) ===== */}
+        {/* ===== SECIÓN 5: TRATAMENTO DE OBJEÇÕES ===== */}
         <AnimatePresence>
           {currentStep >= 4 && (
             <motion.div
@@ -551,7 +607,7 @@ export default function ResultPageExplosive() {
                     </h3>
                     <p className="text-white mobile-info-text break-words">
                       <strong>ESTADÍSTICA:</strong> El 67% de relaciones rebote duran menos de 3 meses. Además, tengo técnicas específicas 
-                      para casos con terceras personas (como viste en el testimonio de Gustavo que recuperó a su ex incluso estando con {getOtherWord()} persona).
+                      para casos con terceras personas (como viste en el testimonio de Gustavo).
                     </p>
                   </div>
 
@@ -562,7 +618,7 @@ export default function ResultPageExplosive() {
                     </h3>
                     <p className="text-white mobile-info-text break-words">
                       <strong>GARANTÍA:</strong> Por eso existe la garantía de 30 días. Si el Plan A no funciona, 
-                      te devuelvo el dinero + te doy una consulta personal gratuita para revisar tu caso específico.
+                      te devuelvo el dinero + te doy una consulta personal gratuita.
                     </p>
                   </div>
 
@@ -572,7 +628,7 @@ export default function ResultPageExplosive() {
           )}
         </AnimatePresence>
 
-        {/* ===== SEÇÃO 6: GARANTIA PODEROSA ===== */}
+        {/* ===== SECIÓN 6: GARANTIA PODEROSA ===== */}
         <AnimatePresence>
           {currentStep >= 5 && (
             <motion.div
@@ -611,7 +667,7 @@ export default function ResultPageExplosive() {
           )}
         </AnimatePresence>
 
-        {/* ===== SEÇÃO 7: MOMENTO DE DECISÃO (NOVA) ===== */}
+        {/* ===== SECIÓN 7: MOMENTO DE DECISIÓN ===== */}
         <AnimatePresence>
           {currentStep >= 5 && (
             <motion.div
@@ -633,7 +689,7 @@ export default function ResultPageExplosive() {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
                   
-                  {/* Opción 1 - Não fazer nada */}
+                  {/* Opción 1 */}
                   <div className="bg-red-900/30 rounded-xl p-6 border-2 border-red-500/50">
                     <h3 className="text-red-400 font-bold mobile-subsection-title mb-4 break-words">
                       ❌ OPCIÓN 1: Seguir Como Hasta Ahora
@@ -647,7 +703,7 @@ export default function ResultPageExplosive() {
                     </div>
                   </div>
 
-                  {/* Opción 2 - Plan A */}
+                  {/* Opción 2 */}
                   <div className="bg-green-900/30 rounded-xl p-6 border-2 border-green-500/50">
                     <h3 className="text-green-400 font-bold mobile-subsection-title mb-4 break-words">
                       ✅ OPCIÓN 2: Aplicar el Plan A
@@ -673,7 +729,7 @@ export default function ResultPageExplosive() {
           )}
         </AnimatePresence>
 
-        {/* ===== SEÇÃO 8: CTA FINAL IRRESISTÍVEL ===== */}
+        {/* ===== SECIÓN 8: CTA FINAL IRRESISTÍVEL ===== */}
         <AnimatePresence>
           {currentStep >= 6 && (
             <motion.div
@@ -718,6 +774,7 @@ export default function ResultPageExplosive() {
                       onClick={() => handlePurchase("cta_final_explosivo")}
                       size="lg"
                       className="mobile-cta-final"
+                      onTouchStart={handleTouchFeedback}
                     >
                       <div className="text-center break-words">
                         <div className="mobile-cta-final-text leading-tight font-black">
@@ -740,7 +797,7 @@ export default function ResultPageExplosive() {
           )}
         </AnimatePresence>
 
-        {/* ===== CSS GLOBAL (MANTIDO IGUAL) ===== */}
+        {/* ===== CSS GLOBAL ===== */}
         <style jsx global>{`
           /* Reset e Base Mobile-First */
           * {
@@ -795,6 +852,47 @@ export default function ResultPageExplosive() {
 
           .mobile-final-padding {
             padding: clamp(1rem, 4vw, 1.5rem);
+          }
+
+          /* CSS para Vídeo */
+          .mobile-video-padding {
+            padding: clamp(0.5rem, 2vw, 1rem);
+          }
+
+          .mobile-video-container {
+            width: 100% !important;
+            max-width: 100% !important;
+            position: relative !important;
+            overflow: hidden !important;
+            border-radius: clamp(0.5rem, 2vw, 1rem) !important;
+          }
+
+          .mobile-vturb-player {
+            display: block !important;
+            margin: 0 auto !important;
+            width: 100% !important;
+            max-width: 100% !important;
+            border-radius: clamp(0.5rem, 2vw, 1rem) !important;
+            overflow: hidden !important;
+            aspect-ratio: 16/9 !important;
+            height: auto !important;
+            min-height: clamp(200px, 40vw, 400px) !important;
+          }
+
+          vturb-smartplayer {
+            border-radius: clamp(0.5rem, 2vw, 1rem) !important;
+            overflow: hidden !important;
+            width: 100% !important;
+            max-width: 100% !important;
+            height: auto !important;
+            display: block !important;
+            aspect-ratio: 16/9 !important;
+            contain: layout style paint !important;
+            min-height: clamp(200px, 40vw, 400px) !important;
+          }
+
+          .mobile-border-orange {
+            border: clamp(1px, 0.5vw, 2px) solid rgb(249 115 22);
           }
 
           /* Tipografia */
