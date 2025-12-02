@@ -12,6 +12,9 @@ import {
   Play,
   Star,
   TrendingUp,
+  Zap,
+  Target,
+  MessageCircle,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
@@ -25,6 +28,9 @@ export default function ResultPageExplosive() {
   const [userAnswers, setUserAnswers] = useState<object>({})
   const [recentBuyers, setRecentBuyers] = useState(7)
   const [currentStep, setCurrentStep] = useState(1)
+  const [activeBuyers, setActiveBuyers] = useState(Math.floor(Math.random() * 10) + 15)
+  const [activeMessages, setActiveMessages] = useState(Math.floor(Math.random() * 5) + 3)
+  const [activeResponses, setActiveResponses] = useState(Math.floor(Math.random() * 3) + 1)
   const contentRef = useRef<HTMLDivElement>(null)
   const startTimeRef = useRef(Date.now())
 
@@ -41,12 +47,16 @@ export default function ResultPageExplosive() {
     // Simular compradores
     const interval = setInterval(() => {
       setRecentBuyers(prev => Math.min(prev + Math.floor(Math.random() * 2) + 1, 31))
+      setActiveBuyers(prev => prev + Math.floor(Math.random() * 2) + 1)
+      setActiveMessages(prev => prev + Math.floor(Math.random() * 2))
+      setActiveResponses(prev => prev + Math.floor(Math.random() * 2))
     }, 35000)
 
     // ✅ GA4 EVENT: Viu resultado otimizado
-    enviarEvento("viu_resultado_otimizado_v2", {
+    enviarEvento("viu_resultado_otimizado_v3", {
       timestamp: new Date().toISOString(),
-      user_gender: savedGender
+      user_gender: savedGender,
+      version: "demonstration_continuity"
     })
 
     // Iniciar o contador de tempo na página
@@ -59,9 +69,10 @@ export default function ResultPageExplosive() {
       clearInterval(interval)
       // ✅ GA4 EVENT: Tempo na página ao sair
       const timeSpent = (Date.now() - startTimeRef.current) / 1000
-      enviarEvento('tempo_pagina_resultado_v2', {
+      enviarEvento('tempo_pagina_resultado_v3', {
         tempo_segundos: timeSpent,
-        conversao: false
+        conversao: false,
+        version: "demonstration_continuity"
       })
     }
   }, [])
@@ -81,18 +92,18 @@ export default function ResultPageExplosive() {
 
   // ===== CARREGAR SCRIPT VTURB =====
   const loadVTurbScript = () => {
-    if (!document.querySelector('script[src*="69261bb488d49382e130c0a6"]')) {
+    if (!document.querySelector('script[src*="692ef1c85df8a7aaec7c6000"]')) {
       const script = document.createElement("script")
-      script.src = "https://scripts.converteai.net/15be01a4-4462-4736-aeb9-b95eda21b8b8/players/69261bb488d49382e130c0a6/v4/player.js"
+      script.src = "https://scripts.converteai.net/15be01a4-4462-4736-aeb9-b95eda21b8b8/players/692ef1c85df8a7aaec7c6000/v4/player.js"
       script.async = true
       document.head.appendChild(script)
     }
   }
 
   // ===== FUNÇÕES DE PERSONALIZAÇÃO =====
-  const getPronoun = () => userGender === "FEMININO" ? "él" : "ella"
-  const getOtherPronoun = () => userGender === "FEMININO" ? "lo" : "la"
-  const getOtherWord = () => userGender === "FEMININO" ? "otro" : "otra"
+  const getPronoun = () => userGender === "SOY MUJER" ? "él" : "ella"
+  const getOtherPronoun = () => userGender === "SOY MUJER" ? "lo" : "la"
+  const getOtherWord = () => userGender === "SOY MUJER" ? "otro" : "otra"
 
   const getPersonalizedSituation = () => {
     const situation = userAnswers?.question7 || "contacto limitado"
@@ -112,50 +123,27 @@ export default function ResultPageExplosive() {
     return timeframe
   }
 
-  const getPersonalizedFirstInsight = () => {
-    const situation = getPersonalizedSituation()
-    
-    if (situation.includes("Contacto cero")) {
-      return `Estás aplicando el "silencio total" pensando que ${getPronoun()} te extrañará automáticamente. ERROR: El silencio sin estrategia solo hace que ${getPronoun()} confirme que fue la decisión correcta dejarte.`
-    }
-    if (situation.includes("Te ignora")) {
-      return `Estás insistiendo con mensajes o intentando "forzar" conversaciones. ERROR: La presión constante activa el sistema de defensa de ${getPronoun()} y la/lo aleja más.`
-    }
-    if (situation.includes("Bloqueado")) {
-      return `Crees que estar bloqueado significa "fin definitivo" y no intentas nada. ERROR: El bloqueo es emocional, no lógico. Existen métodos indirectos que funcionan.`
-    }
-    if (situation.includes("Solo cosas necesarias")) {
-      return `Estás aprovechando cada contacto necesario para "meter conversación personal". ERROR: Mezclar lo práctico con lo emocional hace que ${getPronoun()} evite hasta lo necesario.`
-    }
-    if (situation.includes("Charlas ocasionales")) {
-      return `Te conformas con "charlas de amigos" esperando que ${getPronoun()} recuerde lo que tenían. ERROR: La comodidad de la amistad mata la tensión sexual y romántica que necesitas recrear.`
-    }
-    if (situation.includes("Solo amigos")) {
-      return `Aceptaste ser "solo amigos" esperando demostrar que cambiaste. ERROR: La disponibilidad constante elimina el desafío y la atracción que ${getPronoun()} necesita sentir.`
-    }
-    
-    return `Estás esperando el "momento perfecto" o que ${getPronoun()} haga el primer movimiento. ERROR: Cada día que pasa sin acción estratégica, ${getPronoun()} se aleja emocionalmente.`
-  }
-
   // ===== FUNÇÃO DE COMPRA OTIMIZADA =====
   const handlePurchase = (position = "principal") => {
     const timeToAction = (Date.now() - startTimeRef.current) / 1000
     
     // ✅ GA4 EVENT: Clicou comprar
-    enviarEvento("clicou_comprar_otimizado_v2", {
+    enviarEvento("clicou_comprar_otimizado_v3", {
       posicao: position,
       step_atual: currentStep,
       timestamp: new Date().toISOString(),
       user_gender: userGender,
       situacao: getPersonalizedSituation(),
       tempo_ate_acao: timeToAction,
-      conversao: true
+      conversao: true,
+      version: "demonstration_continuity"
     })
     
     // ✅ GA4 EVENT: Tempo na página com conversão
-    enviarEvento('tempo_pagina_resultado_v2', {
+    enviarEvento('tempo_pagina_resultado_v3', {
       tempo_segundos: timeToAction,
-      conversao: true
+      conversao: true,
+      version: "demonstration_continuity"
     })
     
     setTimeout(() => {
@@ -179,8 +167,8 @@ export default function ResultPageExplosive() {
 
       <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-black overflow-x-hidden w-full max-w-[100vw]">
         
-        {/* ===== SEÇÃO 1: NOVA ABERTURA COM FOCO NO ERRO ===== */}
-        <div className="mobile-padding bg-gradient-to-r from-red-900/20 to-gray-900/20 w-full">
+        {/* ===== SEÇÃO 1: CONTINUIDADE COM A DEMOSTRAÇÃO ===== */}
+        <div className="mobile-padding bg-gradient-to-r from-blue-900/20 to-gray-900/20 w-full">
           <div className="max-w-4xl mx-auto w-full">
             
             <motion.div
@@ -189,54 +177,154 @@ export default function ResultPageExplosive() {
               className="text-center mb-8"
             >
               <h1 className="mobile-headline text-white mb-4 leading-tight break-words">
-                🚨 <span className="text-red-400">DESCUBRÍ EL ERROR</span> QUE TE ESTÁ ALEJANDO DE {getPronoun().toUpperCase()}
+                🎬 <span className="text-blue-400">VISTE LA DEMOSTRACIÓN REAL</span> CON JOSÉ PLAN
               </h1>
               <p className="mobile-description text-gray-300 mb-6 break-words">
-                En los próximos 3 minutos vas a entender exactamente <strong>POR QUÉ {getPronoun()} no ha vuelto</strong>... y QUÉ hacer para cambiar eso de forma definitiva.
+                Ahora descubre qué pasa en los próximos <strong>18 DÍAS</strong> del método completo...
               </p>
             </motion.div>
 
-            {/* ERROR ESPECÍFICO */}
-            <div className="bg-red-900/30 rounded-xl p-4 mb-8 border-2 border-red-500/50">
-              <h3 className="text-red-400 font-bold mobile-subsection-title mb-3 break-words">
-                ❌ TU ERROR PRINCIPAL DETECTADO:
+            {/* REFERENCIA DIRETA À VISTA PREVIA */}
+            <div className="bg-blue-900/30 rounded-xl p-4 mb-8 border-2 border-blue-500/50">
+              <h3 className="text-blue-400 font-bold mobile-subsection-title mb-3 break-words">
+                📱 LA VISTA PREVIA QUE ACABAS DE VER:
               </h3>
               <div className="text-white mobile-info-text">
-                <p className="break-words mb-3">
-                  {getPersonalizedFirstInsight()}
-                </p>
-                <p className="text-red-300 font-bold break-words">
-                  <strong>87% de hombres en tu situación exacta cometen este mismo error.</strong>
-                </p>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                  <div>
+                    <p className="break-words mb-2">✅ Conversación exacta con <strong>JOSÉ PLAN</strong></p>
+                    <p className="break-words mb-2">✅ Mensaje personalizado para: <strong>{getPersonalizedSituation()}</strong></p>
+                  </div>
+                  <div>
+                    <p className="break-words mb-2">✅ 89% de probabilidad de éxito calculada</p>
+                    <p className="break-words mb-2">✅ Respuesta emocional simulada en tiempo real</p>
+                  </div>
+                </div>
+                <div className="bg-yellow-900/30 rounded-lg p-3 border-l-4 border-yellow-400">
+                  <p className="text-yellow-300 font-bold break-words">
+                    <strong>PERO ESO FUE SOLO LOS DÍAS 1-3 del Plan A completo...</strong>
+                  </p>
+                </div>
               </div>
             </div>
 
             {/* ANÁLISIS DE SITUACIÓN */}
             <div className="bg-gray-800/80 rounded-xl p-4 mb-8 border-2 border-green-500/50">
               <h3 className="text-green-400 font-bold mobile-subsection-title mb-3 break-words">
-                📊 TU SITUACIÓN ANALIZADA:
+                📊 TU CASO REQUIERE EL PROTOCOLO COMPLETO:
               </h3>
               <div className="space-y-2 text-white mobile-info-text">
                 <p>→ <strong>Tiempo separados:</strong> {getPersonalizedTimeframe()}</p>
                 <p>→ <strong>Situación actual:</strong> {getPersonalizedSituation()}</p>
-                <p>→ <strong>Protocolo identificado:</strong> Plan A - Recuperación Acelerada</p>
-                <p>→ <strong>Tasa de éxito estimada:</strong> <span className="text-green-400 font-bold">89%</span> para tu caso específico</p>
+                <p>→ <strong>Días del método necesarios:</strong> <span className="text-orange-400 font-bold">21 días completos</span></p>
+                <p>→ <strong>Tasa de éxito con método completo:</strong> <span className="text-green-400 font-bold">89%</span></p>
               </div>
             </div>
           </div>
         </div>
 
-        {/* ===== SECIÓN 1.5: VÍDEO PRINCIPAL CON VTURB ===== */}
+        {/* ===== SEÇÃO 2: REVELAR O ICEBERG ===== */}
+        <div className="mobile-padding bg-gradient-to-r from-gray-900 to-black w-full">
+          <div className="max-w-4xl mx-auto w-full">
+            
+            <h2 className="mobile-section-title font-bold text-white text-center mb-8 break-words">
+              🧊 <span className="text-yellow-400">LA DEMOSTRACIÓN FUE SOLO</span> LA PUNTA DEL ICEBERG
+            </h2>
+            
+            <div className="bg-gradient-to-r from-yellow-900/50 to-orange-900/50 rounded-xl p-6 mb-8 border-2 border-orange-500/50">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                <div className="bg-black/30 rounded-lg p-4 border-l-4 border-green-400">
+                  <h4 className="text-green-400 font-bold mb-3 mobile-subsection-title">✅ LO QUE YA VISTE:</h4>
+                  <ul className="text-white mobile-info-text space-y-2">
+                    <li>→ <strong>Día 1-3:</strong> Primer mensaje optimizado</li>
+                    <li>→ <strong>Respuesta de {getPronoun()}:</strong> Simulada en tiempo real</li>
+                    <li>→ <strong>Tu follow-up:</strong> Estratégico y calculado</li>
+                    <li>→ <strong>Análisis:</strong> Probabilidad de éxito 89%</li>
+                  </ul>
+                  <div className="bg-green-900/30 rounded-lg p-2 mt-3">
+                    <p className="text-green-300 text-sm font-bold">Solo el 14% del método completo</p>
+                  </div>
+                </div>
+                
+                <div className="bg-red-900/30 rounded-lg p-4 border-l-4 border-red-400">
+                  <h4 className="text-red-400 font-bold mb-3 mobile-subsection-title">❓ LO QUE FALTA:</h4>
+                  <ul className="text-white mobile-info-text space-y-2">
+                    <li>→ <strong>Días 4-7:</strong> ¿Qué si no responde?</li>
+                    <li>→ <strong>Días 8-14:</strong> ¿Qué si responde mal?</li>
+                    <li>→ <strong>Días 15-21:</strong> ¿Cómo cerrar la reconquista?</li>
+                    <li>→ <strong className="text-red-300">¿Y SI {getPronoun().toUpperCase()} ESTÁ CON {getOtherWord().toUpperCase()} PERSONA?</strong></li>
+                  </ul>
+                  <div className="bg-red-800/30 rounded-lg p-2 mt-3">
+                    <p className="text-red-300 text-sm font-bold">El 86% más crítico del proceso</p>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="text-center bg-orange-900/30 rounded-lg p-4 border border-orange-500">
+                <p className="text-orange-300 font-bold mobile-description">
+                  <Zap className="inline w-5 h-5 mr-2" />
+                  La vista previa que viste representa SOLO el 14% del método completo.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* ===== SEÇÃO 3: URGÊNCIA BASEADA NA DEMOSTRAÇÃO ===== */}
+        <div className="mobile-padding w-full">
+          <div className="max-w-4xl mx-auto w-full">
+            
+            <div className="bg-red-900/20 border-2 border-red-500 rounded-xl p-6 mb-8">
+              <h3 className="text-red-400 font-bold text-center mb-4 mobile-subsection-title">
+                ⏰ MIENTRAS VEÍAS EL EJEMPLO PRÁCTICO...
+              </h3>
+              
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-center mb-4">
+                <motion.div 
+                  className="bg-black/30 rounded-lg p-4 border border-red-400/30"
+                  animate={{ scale: [1, 1.05, 1] }}
+                  transition={{ duration: 2, repeat: Infinity }}
+                >
+                  <div className="text-red-300 font-bold text-xl">{activeBuyers}</div>
+                  <div className="text-gray-300 mobile-small-text">hombres compraron el Plan A</div>
+                </motion.div>
+                <motion.div 
+                  className="bg-black/30 rounded-lg p-4 border border-yellow-400/30"
+                  animate={{ scale: [1, 1.05, 1] }}
+                  transition={{ duration: 2, repeat: Infinity, delay: 0.5 }}
+                >
+                  <div className="text-yellow-300 font-bold text-xl">{activeMessages}</div>
+                  <div className="text-gray-300 mobile-small-text">ya enviaron el primer mensaje</div>
+                </motion.div>
+                <motion.div 
+                  className="bg-black/30 rounded-lg p-4 border border-green-400/30"
+                  animate={{ scale: [1, 1.05, 1] }}
+                  transition={{ duration: 2, repeat: Infinity, delay: 1 }}
+                >
+                  <div className="text-green-300 font-bold text-xl">{activeResponses}</div>
+                  <div className="text-gray-300 mobile-small-text">ya recibieron respuesta</div>
+                </motion.div>
+              </div>
+              
+              <p className="text-white text-center font-bold mobile-info-text">
+                Mientras tú decides, otros están aplicando el método completo. 
+                <span className="text-red-300"> ¿Vas a dejar que te adelanten con {getPronoun()}?</span>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* ===== SEÇÃO 4: VÍDEO PRINCIPAL ===== */}
         <div className="mobile-padding bg-gradient-to-r from-gray-900 to-black w-full">
           <div className="max-w-4xl mx-auto w-full">
             <div className="text-center mb-6">
               <h2 className="mobile-section-title font-bold text-white mb-4 max-w-full break-words">
-                🎯 <span className="text-orange-400">DESCUBRE</span> LA ESTRATEGIA QUE FUNCIONA
+                🎯 <span className="text-orange-400">DESCUBRE</span> QUÉ PASA DESPUÉS DEL ENSAYO PRÁCTICO
               </h2>
               
               <div className="max-w-2xl mx-auto mb-6 w-full">
                 <p className="mobile-description text-gray-300 mb-4 break-words">
-                  Mira este video:
+                  Los próximos 18 días del método que no viste en la vista previa:
                 </p>
               </div>
             </div>
@@ -248,7 +336,7 @@ export default function ResultPageExplosive() {
                   <div className="absolute inset-0 bg-gradient-to-r from-orange-600/20 to-red-600/20 rounded-xl sm:rounded-2xl animate-pulse"></div>
                   <div className="relative z-10 w-full mobile-video-container">
                     <vturb-smartplayer 
-                      id="vid-69261bb488d49382e130c0a6" 
+                      id="vid-692ef1c85df8a7aaec7c6000" 
                       className="mobile-vturb-player"
                     ></vturb-smartplayer>
                   </div>
@@ -256,22 +344,22 @@ export default function ResultPageExplosive() {
               </div>
             </div>
 
-            {/* BARRA DE PROGRESSO CON COPY CONVERSIVO */}
+            {/* BARRA DE PROGRESSO */}
             <AnimatePresence>
               {currentStep < 3 && (
                 <div className="text-center mb-8 max-w-md mx-auto">
                   <div className="text-gray-300 mobile-small-text mb-3 break-words font-semibold">
-                    ⏳ ANALIZANDO TU CASO Y DESBLOQUEANDO TU PLAN PERSONALIZADO...
+                    ⏳ DESBLOQUEANDO LOS 18 DÍAS RESTANTES DEL MÉTODO...
                   </div>
                   <div className="w-full bg-gray-700 rounded-full h-3 max-w-md mx-auto overflow-hidden border border-orange-500">
                     <motion.div
                       className="bg-gradient-to-r from-orange-500 to-red-500 h-3 rounded-full"
-                      animate={{ width: ["0%", "100%"] }}
+                      animate={{ width: ["14%", "100%"] }}
                       transition={{ duration: 6, ease: "linear" }}
                     />
                   </div>
                   <p className="text-gray-400 mobile-small-text mt-3 break-words italic">
-                    Esto garantiza que recibas exactamente lo que necesitas para tu situación...
+                    De los 3 días demostrados a los 21 días completos...
                   </p>
                 </div>
               )}
@@ -279,87 +367,7 @@ export default function ResultPageExplosive() {
           </div>
         </div>
 
-        {/* ===== SEÇÃO 2: TÉCNICA EXACTA PARA TU CASO ===== */}
-        <div className="mobile-padding w-full">
-          <div className="max-w-4xl mx-auto w-full">
-            
-            <h2 className="mobile-section-title font-bold text-white text-center mb-8 break-words">
-              ✅ LA <span className="text-green-400">TÉCNICA EXACTA</span> PARA TU CASO ESPECÍFICO
-            </h2>
-            <p className="text-center text-gray-300 mobile-description mb-6 break-words">
-              Basándome en tus 8 respuestas, esta es la estrategia que tiene 89% de éxito en casos como el tuyo:
-            </p>
-
-            <div className="space-y-6 mb-8">
-              
-              {/* STEP 1 - Siempre Visible */}
-              <motion.div
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                className="bg-gradient-to-r from-blue-900/50 to-blue-800/50 rounded-xl p-6 border-l-4 border-blue-400"
-              >
-                <h3 className="text-blue-400 font-bold mobile-subsection-title mb-3 break-words">
-                  DÍAS 8-10: TÉCNICA DE "RECONEXIÓN EMOCIONAL"
-                </h3>
-                <div className="text-white mobile-info-text space-y-2">
-                  <p>→ <strong>Mensaje exacto específico para tu situación:</strong></p>
-                  <div className="bg-black/30 p-3 rounded-lg italic text-green-300 break-words">
-                    "{userGender === 'MASCULINO' ? 
-                      `"Hey [nombre], encontré una foto nuestra de [memoria específica]. Me hizo sonreír. Espero que estés bien."` :
-                      `"Hola [nombre], vi algo que me recordó a [memoria específica]. Me alegró el día. Espero que tengas una buena semana."`
-                    }"
-                  </div>
-                  <p>→ <strong>Timing perfecto:</strong> Enviar martes o miércoles a las 7:30 PM</p>
-                  <p>→ <strong>Qué esperar:</strong> 73% de respuesta positiva en casos similares</p>
-                </div>
-              </motion.div>
-
-              {/* STEP 2 - Aparece após 6s */}
-              <AnimatePresence>
-                {currentStep >= 2 && (
-                  <motion.div
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    className="bg-gradient-to-r from-purple-900/50 to-purple-800/50 rounded-xl p-6 border-l-4 border-purple-400"
-                  >
-                    <h3 className="text-purple-400 font-bold mobile-subsection-title mb-3 break-words">
-                      DÍAS 11-14: PROTOCOLO DE "ENCUENTRO CASUAL"
-                    </h3>
-                    <div className="text-white mobile-info-text space-y-2">
-                      <p>→ <strong>Lugar estratégico:</strong> [Local frecuentado por {getPronoun()}]</p>
-                      <p>→ <strong>Guión de conversación:</strong> 3 frases exactas que reactivan la atracción</p>
-                      <p>→ <strong>Lenguaje corporal específico:</strong> Posiciones que generan nostalgia inconsciente</p>
-                      <p>→ <strong>Exit strategy:</strong> Cómo terminar la conversación para que {getPronoun()} quiera más</p>
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-
-              {/* STEP 3 - Aparece após 12s */}
-              <AnimatePresence>
-                {currentStep >= 3 && (
-                  <motion.div
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    className="bg-gradient-to-r from-orange-900/50 to-orange-800/50 rounded-xl p-6 border-l-4 border-orange-400"
-                  >
-                    <h3 className="text-orange-400 font-bold mobile-subsection-title mb-3 break-words">
-                      DÍAS 15-21: FASE DE "RECONCILIACIÓN DEFINITIVA"
-                    </h3>
-                    <div className="text-white mobile-info-text space-y-2">
-                      <p>→ <strong>Los 21 Disparadores Emocionales:</strong> Frases que rompen la resistencia final</p>
-                      <p>→ <strong>Momento exacto para la declaración:</strong> Cuándo y cómo expresar tus sentimientos</p>
-                      <p>→ <strong>Protocolo anti-rechazo:</strong> Qué hacer si {getPronoun()} aún tiene dudas</p>
-                      <p>→ <strong>Plan de relación 2.0:</strong> Cómo hacer que la nueva relación sea mejor que antes</p>
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
-          </div>
-        </div>
-
-        {/* ===== SECIÓN 3: OFERTA IRRESISTÍVEL (MOVIDA PARA CIMA) ===== */}
+        {/* ===== SEÇÃO 5: OFERTA COMPLETAMENTE REPAGINADA ===== */}
         <AnimatePresence>
           {currentStep >= 3 && (
             <motion.div
@@ -374,48 +382,64 @@ export default function ResultPageExplosive() {
                   <CardContent className="mobile-offer-padding text-center w-full">
                     
                     <div className="bg-yellow-400 text-black font-bold mobile-offer-badge rounded-full inline-block mb-6">
-                      🎯 ACCESO COMPLETO AL PLAN A
+                      📱 PLAN A COMPLETO: DEL EJEMPLO PRÁCTICO A LA RECONQUISTA REAL
                     </div>
 
                     <h2 className="mobile-offer-title font-black mb-6 text-white break-words">
-                      RECUPERA A {getPronoun().toUpperCase()} EN LOS PRÓXIMOS 21 DÍAS
+                      LOS 21 DÍAS COMPLETOS PARA RECUPERAR A {getPronoun().toUpperCase()}
                     </h2>
 
                     <div className="bg-gradient-to-r from-green-900/50 to-emerald-900/50 rounded-lg p-6 mb-6 border border-green-500/50">
                       <h3 className="text-green-400 font-bold mobile-subsection-title mb-4 break-words">
-                        🎁 TODO LO QUE RECIBES HOY:
+                        🎁 MÉTODO COMPLETO DIVIDIDO EN MÓDULOS:
                       </h3>
                       
-                      <div className="text-left space-y-3 max-w-2xl mx-auto">
-                        <div className="flex items-start text-white mobile-feature-text break-words">
-                          <TrendingUp className="mobile-check-icon text-green-400 mr-3 flex-shrink-0 mt-1" />
-                          <span><strong>Plan A Completo:</strong> Los 14 protocolos específicos para tu caso (Valor: $97)</span>
+                      <div className="space-y-4">
+                        <div className="bg-blue-900/30 rounded-lg p-4 border-l-4 border-blue-400 text-left">
+                          <h4 className="text-blue-400 font-bold mb-2 mobile-info-text">
+                            <MessageCircle className="inline w-4 h-4 mr-2" />
+                            MÓDULO 1: CONVERSACIONES (Días 1-7)
+                          </h4>
+                          <p className="text-white mobile-small-text mb-2">→ El ejemplo práctico que viste + 6 escenarios adicionales</p>
+                          <p className="text-white mobile-small-text mb-2">→ ¿Qué hacer si no responde? ¿Si responde seco? ¿Si te deja en visto?</p>
+                          <p className="text-gray-400 text-xs">Valor: $97</p>
                         </div>
                         
-                        <div className="flex items-start text-white mobile-feature-text break-words">
-                          <Check className="mobile-check-icon text-green-400 mr-3 flex-shrink-0 mt-1" />
-                          <span><strong>21 Disparadores Emocionales:</strong> Las frases exactas que funcionan (Valor: $47)</span>
+                        <div className="bg-purple-900/30 rounded-lg p-4 border-l-4 border-purple-400 text-left">
+                          <h4 className="text-purple-400 font-bold mb-2 mobile-info-text">
+                            <Users className="inline w-4 h-4 mr-2" />
+                            MÓDULO 2: ENCUENTROS (Días 8-14)
+                          </h4>
+                          <p className="text-white mobile-small-text mb-2">→ De la conversación virtual al encuentro real</p>
+                          <p className="text-white mobile-small-text mb-2">→ Scripts exactos para cada tipo de encuentro</p>
+                          <p className="text-gray-400 text-xs">Valor: $127</p>
                         </div>
                         
-                        <div className="flex items-start text-white mobile-feature-text break-words">
-                          <Check className="mobile-check-icon text-green-400 mr-3 flex-shrink-0 mt-1" />
-                          <span><strong>Protocolo de Emergencia 72H:</strong> Para casos críticos (Valor: $37)</span>
+                        <div className="bg-orange-900/30 rounded-lg p-4 border-l-4 border-orange-400 text-left">
+                          <h4 className="text-orange-400 font-bold mb-2 mobile-info-text">
+                            <Heart className="inline w-4 h-4 mr-2" />
+                            MÓDULO 3: RECONQUISTA (Días 15-21)
+                          </h4>
+                          <p className="text-white mobile-small-text mb-2">→ Del encuentro a la relación oficial</p>
+                          <p className="text-white mobile-small-text mb-2">→ Protocolo anti-rechazo + Plan de relación 2.0</p>
+                          <p className="text-gray-400 text-xs">Valor: $147</p>
                         </div>
                         
-                        <div className="flex items-start text-white mobile-feature-text break-words">
-                          <Check className="mobile-check-icon text-green-400 mr-3 flex-shrink-0 mt-1" />
-                          <span><strong>Scripts Personalizados:</strong> Para tu situación específica (Valor: $67)</span>
+                        <div className="bg-red-900/30 rounded-lg p-4 border-l-4 border-red-400 text-left">
+                          <h4 className="text-red-400 font-bold mb-2 mobile-info-text">
+                            <Target className="inline w-4 h-4 mr-2" />
+                            MÓDULO 4: PROTOCOLO DE EMERGENCIA
+                          </h4>
+                          <p className="text-white mobile-small-text mb-2">→ ¿Qué hacer si {getPronoun()} está con otra persona?</p>
+                          <p className="text-white mobile-small-text mb-2">→ Técnicas avanzadas para casos "imposibles"</p>
+                          <p className="text-gray-400 text-xs">Valor: $197</p>
                         </div>
-                        
-                        <div className="flex items-start text-white mobile-feature-text break-words">
-                          <Check className="mobile-check-icon text-green-400 mr-3 flex-shrink-0 mt-1" />
-                          <span><strong>Soporte Directo conmigo:</strong> Dudas y seguimiento (Valor: $197)</span>
-                        </div>
-                        
-                        <div className="border-t border-gray-600 pt-3 mt-4">
-                          <p className="text-gray-400 mobile-small-text mb-2">Valor Total: $445</p>
-                          <p className="text-green-400 font-bold mobile-description">Tu inversión hoy: Solo $12,99</p>
-                        </div>
+                      </div>
+                      
+                      <div className="bg-black/50 rounded-lg p-4 mt-6 text-center border border-yellow-500">
+                        <p className="text-gray-300 mobile-small-text line-through mb-2">Valor Total: $568</p>
+                        <p className="text-green-400 font-bold mobile-description mb-2">Tu inversión HOY: $12,99</p>
+                        <p className="text-yellow-300 mobile-small-text font-bold">96% de descuento solo por haber visto la vista previa</p>
                       </div>
                     </div>
 
@@ -431,18 +455,18 @@ export default function ResultPageExplosive() {
                       className="mb-6 w-full"
                     >
                       <Button
-                        onClick={() => handlePurchase("oferta_principal")}
+                        onClick={() => handlePurchase("oferta_principal_demostracion")}
                         size="lg"
                         className="mobile-cta-offer"
                         onTouchStart={handleTouchFeedback}
                       >
-                        <Heart className="mobile-icon-size mr-2 flex-shrink-0" />
+                        <MessageCircle className="mobile-icon-size mr-2 flex-shrink-0" />
                         <div className="text-center break-words">
                           <div className="mobile-cta-offer-text leading-tight font-black">
-                            💔 SÍ, QUIERO DEJAR DE SUFRIR Y RECUPERAR{getOtherPronoun().toUpperCase()}
+                            📱 QUIERO EL MÉTODO COMPLETO DE LA DEMOSTRACIÓN
                           </div>
                           <div className="mobile-small-text mt-1 opacity-90">
-                            Plan específico para: {getPersonalizedSituation()}
+                            Los 21 días completos, no solo los primeros 3
                           </div>
                         </div>
                       </Button>
@@ -450,13 +474,13 @@ export default function ResultPageExplosive() {
 
                     <div className="bg-red-900/80 mobile-urgency-padding rounded-lg mb-6 border border-red-500">
                       <p className="text-yellow-300 font-bold mobile-urgency-text mb-2 break-words">
-                        ⏰ PRECIO ESPECIAL EXPIRA EN:
+                        ⏰ PRECIO ESPECIAL PARA QUIENES VIERON LA DEMOSTRACIÓN:
                       </p>
                       <div className="mobile-countdown font-black text-white mb-2">
                         <CountdownTimer minutes={47} seconds={0} />
                       </div>
                       <p className="text-red-300 mobile-small-text break-words">
-                        Después vuelve a $67. No lo dejes para mañana.
+                        Después vuelve a $67. Solo para quienes completaron el análisis.
                       </p>
                     </div>
 
@@ -467,7 +491,7 @@ export default function ResultPageExplosive() {
                       </div>
                       <div className="flex items-center break-words">
                         <Heart className="mobile-social-icon text-red-400 mr-1" />
-                        <span><strong className="text-white">89%</strong> ya vio resultados</span>
+                        <span><strong className="text-white">87%</strong> ya vio resultados</span>
                       </div>
                     </div>
                   </CardContent>
@@ -477,7 +501,73 @@ export default function ResultPageExplosive() {
           )}
         </AnimatePresence>
 
-        {/* ===== SECIÓN 4: PROVA SOCIAL MELHORADA ===== */}
+        {/* ===== SEÇÃO 6: OBJEÇÕES ESPECÍFICAS DA DEMOSTRAÇÃO ===== */}
+        <AnimatePresence>
+          {currentStep >= 4 && (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 1 }}
+              className="mobile-padding w-full bg-gray-900/50"
+            >
+              <div className="max-w-4xl mx-auto w-full">
+                <h2 className="mobile-section-title font-bold text-white text-center mb-8 break-words">
+                  🤔 <span className="text-yellow-400">"PERO... ¿Y SI MI CASO ES DIFERENTE AL EJEMPLO PRÁCTICO?"</span>
+                </h2>
+
+                <div className="space-y-6 mb-8">
+                  
+                  <div className="bg-gray-800 rounded-xl p-6 border-l-4 border-yellow-400">
+                    <h3 className="text-yellow-400 font-bold mobile-subsection-title mb-3 break-words">
+                      💭 "En la demostración {getPronoun()} respondió bien... ¿y si en la vida real no?"
+                    </h3>
+                    <p className="text-white mobile-info-text break-words">
+                      <strong>EXACTO:</strong> Por eso necesitas el Plan A completo. La vista previa mostró el escenario 
+                      IDEAL, pero el método incluye 12 escenarios diferentes según cómo responda {getPronoun()}. 
+                      Incluso si no responde al primer mensaje.
+                    </p>
+                  </div>
+
+                  <div className="bg-gray-800 rounded-xl p-6 border-l-4 border-blue-400">
+                    <h3 className="text-blue-400 font-bold mobile-subsection-title mb-3 break-words">
+                      💔 "¿Y si mi ex ni siquiera responde al primer mensaje?"
+                    </h3>
+                    <p className="text-white mobile-info-text break-words">
+                      <strong>PROTOCOLO ESPECÍFICO:</strong> El 27% no responde al primer mensaje. Por eso existe 
+                      el "Protocolo de Silencio" - 3 técnicas diferentes para casos de no-respuesta. 
+                      Días 4-7 del método completo.
+                    </p>
+                  </div>
+
+                  <div className="bg-gray-800 rounded-xl p-6 border-l-4 border-green-400">
+                    <h3 className="text-green-400 font-bold mobile-subsection-title mb-3 break-words">
+                      😰 "¿Y si {getPronoun()} está con {getOtherWord()} persona como dijiste en el quiz?"
+                    </h3>
+                    <p className="text-white mobile-info-text break-words">
+                      <strong>MÓDULO ESPECIAL:</strong> El "Protocolo Anti-Terceros" está incluido en el Módulo 4. 
+                      Has visto el testimonio: funcionó incluso con {getPronoun()} viviendo con otra persona. 
+                      Días 15-21 del método.
+                    </p>
+                  </div>
+
+                  <div className="bg-gray-800 rounded-xl p-6 border-l-4 border-orange-400">
+                    <h3 className="text-orange-400 font-bold mobile-subsection-title mb-3 break-words">
+                      🎭 "La demostración se veía muy fácil... ¿será tan simple?"
+                    </h3>
+                    <p className="text-white mobile-info-text break-words">
+                      <strong>LA REALIDAD:</strong> El ejemplo práctico mostró SOLO el primer intercambio exitoso. 
+                      El método completo incluye 47 variables diferentes, 12 tipos de respuesta, y 
+                      técnicas para cada obstáculo posible. Por eso funciona en el 87% de los casos.
+                    </p>
+                  </div>
+
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* ===== SEÇÃO 7: CASOS DE ÉXITO ===== */}
         <AnimatePresence>
           {currentStep >= 4 && (
             <motion.div
@@ -489,7 +579,7 @@ export default function ResultPageExplosive() {
               <div className="max-w-4xl mx-auto w-full">
                 
                 <h2 className="mobile-section-title font-bold text-white text-center mb-8 break-words">
-                  💕 <span className="text-pink-400">CASOS DE ÉXITO</span> CON TU MISMA SITUACIÓN
+                  💕 <span className="text-pink-400">CASOS REALES</span> MÁS ALLÁ DEL EJEMPLO PRÁCTICO
                 </h2>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
@@ -505,16 +595,18 @@ export default function ResultPageExplosive() {
                       <div className="flex-1">
                         <h4 className="text-white font-bold mobile-info-text mb-2 break-words">Miguel D., 33 años - Colombia</h4>
                         <p className="text-gray-300 mobile-small-text mb-3 break-words">
-                          <span className="text-yellow-400">Situación:</span> Contacto cero desde hace 2 meses
+                          <span className="text-yellow-400">Situación:</span> {getPronoun()} NO respondió al primer mensaje
                         </p>
                         <p className="text-white mobile-info-text italic mb-3 break-words">
-                          "Estaba 2 meses en contacto cero sin saber qué hacer. El Plan A me enseñó QUÉ mensaje enviar y CUÁNDO. A los 4 días {getPronoun()} respondió preguntando cómo estaba. A los 11 días me pidió que nos viéramos. <strong>La diferencia fue tener un mensaje exacto, no suplicar.</strong> Hoy estamos de vuelta y mejor que antes."
+                          "Mi caso fue diferente a cualquier demostración. {getPronoun()} me ignoró completamente los primeros 4 días. 
+                          Usé el Protocolo de Silencio del Plan A. El día 8 apliqué la técnica del 'Segundo Intento Estratégico'. 
+                          <strong>Funcionó: {getPronoun()} me escribió preguntando cómo estaba.</strong> En 11 días volvimos."
                         </p>
                         <div className="flex items-center mt-3">
                           {[...Array(5)].map((_, i) => (
                             <Star key={i} className="w-4 h-4 text-yellow-400 fill-current" />
                           ))}
-                          <span className="text-green-400 mobile-small-text ml-2 font-bold">✅ Recuperó su relación</span>
+                          <span className="text-green-400 mobile-small-text ml-2 font-bold">✅ Protocolo de Silencio exitoso</span>
                         </div>
                       </div>
                     </div>
@@ -531,16 +623,18 @@ export default function ResultPageExplosive() {
                       <div className="flex-1">
                         <h4 className="text-white font-bold mobile-info-text mb-2 break-words">Gustavo R., 29 años - Perú</h4>
                         <p className="text-gray-300 mobile-small-text mb-3 break-words">
-                          <span className="text-yellow-400">Situación:</span> {getPronoun()} estaba con otro/otra hace 3 meses
+                          <span className="text-yellow-400">Situación:</span> {getPronoun()} estaba con otra persona hace 3 meses
                         </p>
                         <p className="text-white mobile-info-text italic mb-3 break-words">
-                          "Mi situación parecía completamente perdida. {getPronoun()} llevaba 3 meses con esta otra persona. Pensé que había perdido para siempre. Pero el Protocolo Anti-Terceros del Plan A me mostró exactamente qué hacer. Día 1-7: diferenciación. Día 8-12: reactivación. Día 13: {getPronoun()} empezó a cuestionarse. Día 16: {getPronoun()} me escribió. <strong>Hoy dejó a ese tipo y estamos viviendo juntos.</strong>"
+                          "Mi caso parecía imposible - mucho peor que cualquier ejemplo práctico. {getPronoun()} llevaba 3 meses con otra persona. 
+                          El Protocolo Anti-Terceros del Módulo 4 fue mi salvación. Día 1-7: diferenciación sutil. Día 8-12: generar dudas. 
+                          Día 13: {getPronoun()} empezó a compararme. <strong>Día 16: dejó a esa persona por mí.</strong>"
                         </p>
                         <div className="flex items-center mt-3">
                           {[...Array(5)].map((_, i) => (
                             <Star key={i} className="w-4 h-4 text-yellow-400 fill-current" />
                           ))}
-                          <span className="text-green-400 mobile-small-text ml-2 font-bold">✅ Recuperó su relación</span>
+                          <span className="text-green-400 mobile-small-text ml-2 font-bold">✅ Protocolo Anti-Terceros exitoso</span>
                         </div>
                       </div>
                     </div>
@@ -551,20 +645,20 @@ export default function ResultPageExplosive() {
                 {/* ESTATÍSTICAS */}
                 <div className="bg-gradient-to-r from-green-900/50 to-blue-900/50 rounded-xl p-6 mb-6 border border-green-500/30">
                   <h3 className="text-green-400 font-bold mobile-subsection-title text-center mb-4 break-words">
-                    📊 RESULTADOS COMPROBADOS EN CASOS COMO EL TUYO:
+                    📊 RESULTADOS REALES:
                   </h3>
                   <div className="grid grid-cols-3 gap-4 text-center">
                     <div>
                       <div className="mobile-stats-number font-bold text-green-400 mb-1">89%</div>
-                      <p className="text-white mobile-stats-text break-words">Éxito en tu situación</p>
+                      <p className="text-white mobile-stats-text break-words">Éxito con método completo</p>
                     </div>
                     <div>
-                      <div className="mobile-stats-number font-bold text-blue-400 mb-1">16</div>
-                      <p className="text-white mobile-stats-text break-words">Días promedio</p>
+                      <div className="mobile-stats-number font-bold text-blue-400 mb-1">73%</div>
+                      <p className="text-white mobile-stats-text break-words">Éxito incluso sin responder al primer mensaje</p>
                     </div>
                     <div>
-                      <div className="mobile-stats-number font-bold text-orange-400 mb-1">3.847</div>
-                      <p className="text-white mobile-stats-text break-words">Éxitos este año</p>
+                      <div className="mobile-stats-number font-bold text-orange-400 mb-1">67%</div>
+                      <p className="text-white mobile-stats-text break-words">Éxito incluso con terceras personas</p>
                     </div>
                   </div>
                 </div>
@@ -573,62 +667,7 @@ export default function ResultPageExplosive() {
           )}
         </AnimatePresence>
 
-        {/* ===== SECIÓN 5: TRATAMENTO DE OBJEÇÕES ===== */}
-        <AnimatePresence>
-          {currentStep >= 4 && (
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1 }}
-              className="mobile-padding w-full bg-gray-900/50"
-            >
-              <div className="max-w-4xl mx-auto w-full">
-                <h2 className="mobile-section-title font-bold text-white text-center mb-8 break-words">
-                  🤔 <span className="text-yellow-400">"PERO... ¿Y SI MI CASO ES DIFERENTE?"</span>
-                </h2>
-
-                <div className="space-y-6 mb-8">
-                  
-                  {/* Objeção 1 */}
-                  <div className="bg-gray-800 rounded-xl p-6 border-l-4 border-yellow-400">
-                    <h3 className="text-yellow-400 font-bold mobile-subsection-title mb-3 break-words">
-                      💭 "¿Y si {getPronoun()} ya me olvidó completamente?"
-                    </h3>
-                    <p className="text-white mobile-info-text break-words">
-                      <strong>REALIDAD:</strong> Imposible. El 91% de mujeres siguen pensando en su ex los primeros 6 meses. 
-                      Tu caso específico: <strong>{getPersonalizedTimeframe()}</strong> = alta probabilidad de que tengas recuerdos activos en su mente.
-                    </p>
-                  </div>
-
-                  {/* Objeção 2 */}
-                  <div className="bg-gray-800 rounded-xl p-6 border-l-4 border-blue-400">
-                    <h3 className="text-blue-400 font-bold mobile-subsection-title mb-3 break-words">
-                      💔 "¿Y si {getPronoun()} está con {getOtherWord()} persona y es feliz?"
-                    </h3>
-                    <p className="text-white mobile-info-text break-words">
-                      <strong>ESTADÍSTICA:</strong> El 67% de relaciones rebote duran menos de 3 meses. Además, tengo técnicas específicas 
-                      para casos con terceras personas (como viste en el testimonio de Gustavo).
-                    </p>
-                  </div>
-
-                  {/* Objeção 3 */}
-                  <div className="bg-gray-800 rounded-xl p-6 border-l-4 border-green-400">
-                    <h3 className="text-green-400 font-bold mobile-subsection-title mb-3 break-words">
-                      😰 "¿Y si aplico el método y empeoro las cosas?"
-                    </h3>
-                    <p className="text-white mobile-info-text break-words">
-                      <strong>GARANTÍA:</strong> Por eso existe la garantía de 30 días. Si el Plan A no funciona, 
-                      te devuelvo el dinero + te doy una consulta personal gratuita.
-                    </p>
-                  </div>
-
-                </div>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-
-        {/* ===== SECIÓN 6: GARANTIA PODEROSA ===== */}
+        {/* ===== SEÇÃO 8: GARANTIA ===== */}
         <AnimatePresence>
           {currentStep >= 5 && (
             <motion.div
@@ -647,18 +686,19 @@ export default function ResultPageExplosive() {
                     </h2>
                     
                     <p className="text-green-700 mobile-guarantee-text font-bold mb-4 break-words">
-                      Si en 30 días no ves progreso real con {getPronoun()}, te devuelvo el 100% de tu dinero
+                      Si el método completo no funciona mejor que el ejemplo práctico, te devuelvo el 100% de tu dinero
                     </p>
                     
                     <div className="bg-white rounded-lg p-4 border-2 border-green-500">
                       <p className="text-green-800 mobile-guarantee-desc font-semibold break-words">
-                        <strong>Mi promesa personal:</strong> Si sigues el Plan A y no funciona, no solo te devuelvo el dinero, 
-                        te doy una consulta personal gratuita para revisar tu caso específico.
+                        <strong>Mi promesa personal:</strong> Si sigues los 21 días completos del Plan A y no ves 
+                        progreso real con {getPronoun()}, no solo te devuelvo el dinero, te doy una consulta personal 
+                        gratuita para revisar tu caso específico.
                       </p>
                     </div>
                     
                     <p className="text-green-600 mobile-small-text mt-4 break-words">
-                      Tienes 30 días completos para probarlo. Sin preguntas, sin problemas.
+                      Tienes 30 días completos para probarlo. La demostración fue solo el inicio.
                     </p>
                   </CardContent>
                 </Card>
@@ -667,69 +707,7 @@ export default function ResultPageExplosive() {
           )}
         </AnimatePresence>
 
-        {/* ===== SECIÓN 7: MOMENTO DE DECISIÓN ===== */}
-        <AnimatePresence>
-          {currentStep >= 5 && (
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1 }}
-              className="mobile-padding bg-gradient-to-r from-red-900/50 to-black w-full"
-            >
-              <div className="max-w-4xl mx-auto w-full">
-                
-                <h2 className="mobile-section-title font-bold text-white text-center mb-8 break-words">
-                  ⚡ <span className="text-red-400">{getPronoun().toUpperCase()} ESTÁ DECIDIENDO</span> SU FUTURO AMOROSO AHORA MISMO
-                </h2>
-
-                <p className="text-white mobile-description text-center mb-8 break-words">
-                  Cada día que pasa sin aplicar el método correcto, {getPronoun()} se aleja más emocionalmente. 
-                  <strong>Tienes que elegir AHORA:</strong>
-                </p>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-                  
-                  {/* Opción 1 */}
-                  <div className="bg-red-900/30 rounded-xl p-6 border-2 border-red-500/50">
-                    <h3 className="text-red-400 font-bold mobile-subsection-title mb-4 break-words">
-                      ❌ OPCIÓN 1: Seguir Como Hasta Ahora
-                    </h3>
-                    <div className="space-y-2 text-white mobile-info-text">
-                      <p className="break-words">→ {getPronoun()} sigue alejándose cada día</p>
-                      <p className="break-words">→ Cada semana es más difícil</p>
-                      <p className="break-words">→ Puede conocer a {getOtherWord()} persona</p>
-                      <p className="break-words">→ El dolor y arrepentimiento aumentan</p>
-                      <p className="break-words">→ En 6 meses será demasiado tarde</p>
-                    </div>
-                  </div>
-
-                  {/* Opción 2 */}
-                  <div className="bg-green-900/30 rounded-xl p-6 border-2 border-green-500/50">
-                    <h3 className="text-green-400 font-bold mobile-subsection-title mb-4 break-words">
-                      ✅ OPCIÓN 2: Aplicar el Plan A
-                    </h3>
-                    <div className="space-y-2 text-white mobile-info-text">
-                      <p className="break-words">→ Técnicas específicas para tu caso exacto</p>
-                      <p className="break-words">→ 89% de éxito en situaciones como la tuya</p>
-                      <p className="break-words">→ Resultados visibles en 21 días</p>
-                      <p className="break-words">→ Garantía incondicional de 30 días</p>
-                      <p className="break-words">→ Soporte directo conmigo</p>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="text-center bg-yellow-900/30 rounded-lg p-4 border border-yellow-500/50">
-                  <p className="text-yellow-300 font-bold mobile-description break-words">
-                    La pregunta no es si puedes recuperar{getOtherPronoun()}. Es si VAS a hacerlo.
-                  </p>
-                </div>
-
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-
-        {/* ===== SECIÓN 8: CTA FINAL IRRESISTÍVEL ===== */}
+        {/* ===== SEÇÃO 9: CTA FINAL IRRESISTÍVEL ===== */}
         <AnimatePresence>
           {currentStep >= 6 && (
             <motion.div
@@ -743,19 +721,20 @@ export default function ResultPageExplosive() {
                 <div className="bg-black/80 backdrop-blur-sm rounded-2xl mobile-final-padding border-2 border-yellow-400 w-full">
                   
                   <h2 className="mobile-final-title font-black text-white mb-4 break-words">
-                    ⚡ ÚLTIMO AVISO - DECIDE AHORA
+                    ⚡ ÚLTIMO AVISO - COMPLETA LA DEMOSTRACIÓN EN LA VIDA REAL
                   </h2>
                   
                   <p className="mobile-final-subtitle text-white mb-6 font-bold break-words">
-                    Mientras lees esto, {getPronoun()} está tomando decisiones sobre su vida amorosa.
+                    Viste cómo funciona en el ejemplo práctico. Ahora hazlo realidad con {getPronoun()}.
                   </p>
                   
                   <div className="bg-yellow-600/20 border border-yellow-400 rounded-lg p-4 mb-6">
                     <p className="text-yellow-300 mobile-info-text font-bold mb-2 break-words">
-                      🤔 PIENSA EN ESTO:
+                      🎬 LA DEMOSTRACIÓN TE MOSTRÓ LOS DÍAS 1-3:
                     </p>
                     <p className="text-white mobile-description break-words">
-                      ¿Cuánto vale recuperar a la persona que amas? ¿$12,99 o años de arrepentimiento?
+                      Ahora necesitas los días 4-21 para completar la reconquista real. 
+                      ¿Vale la pena $12,99 recuperar a quien amas?
                     </p>
                   </div>
 
@@ -771,17 +750,17 @@ export default function ResultPageExplosive() {
                     className="w-full mb-6"
                   >
                     <Button
-                      onClick={() => handlePurchase("cta_final_explosivo")}
+                      onClick={() => handlePurchase("cta_final_demostracion")}
                       size="lg"
                       className="mobile-cta-final"
                       onTouchStart={handleTouchFeedback}
                     >
                       <div className="text-center break-words">
                         <div className="mobile-cta-final-text leading-tight font-black">
-                          ⚡ SÍ, QUIERO EL PLAN A COMPLETO AHORA
+                          🎬 SÍ, QUIERO COMPLETAR LA DEMOSTRACIÓN EN LA VIDA REAL
                         </div>
                         <div className="mobile-small-text mt-1 opacity-90">
-                          Antes de que {getPronoun()} tome otra decisión definitiva
+                          Los 21 días completos para reconquistar a {getPronoun()}
                         </div>
                       </div>
                       <ArrowRight className="mobile-icon-size ml-2 flex-shrink-0" />
@@ -789,7 +768,7 @@ export default function ResultPageExplosive() {
                   </motion.div>
 
                   <p className="text-yellow-300 mobile-final-warning font-bold break-words">
-                    No dejes que {getPronoun()} se aleje definitivamente. Actúa ahora.
+                    El ejemplo práctico fue perfecto. Ahora hazlo realidad antes de que sea tarde.
                   </p>
                 </div>
               </div>
@@ -797,7 +776,7 @@ export default function ResultPageExplosive() {
           )}
         </AnimatePresence>
 
-        {/* ===== CSS GLOBAL ===== */}
+        {/* ===== CSS GLOBAL (MANTIDO IGUAL) ===== */}
         <style jsx global>{`
           /* Reset e Base Mobile-First */
           * {
@@ -826,20 +805,8 @@ export default function ResultPageExplosive() {
             padding: clamp(1rem, 4vw, 2rem) clamp(0.75rem, 3vw, 1rem);
           }
 
-          .mobile-card-padding {
-            padding: clamp(1rem, 4vw, 1.5rem);
-          }
-
           .mobile-offer-padding {
             padding: clamp(1rem, 4vw, 2rem);
-          }
-
-          .mobile-price-padding {
-            padding: clamp(1rem, 4vw, 1.5rem);
-          }
-
-          .mobile-stats-padding {
-            padding: clamp(0.75rem, 3vw, 1rem);
           }
 
           .mobile-urgency-padding {
@@ -942,21 +909,6 @@ export default function ResultPageExplosive() {
             line-height: 1.4;
           }
 
-          .mobile-feature-text {
-            font-size: clamp(0.875rem, 3vw, 1rem);
-            line-height: 1.4;
-          }
-
-          .mobile-price-main {
-            font-size: clamp(2.5rem, 8vw, 3.75rem);
-            line-height: 1;
-          }
-
-          .mobile-price-sub {
-            font-size: clamp(1rem, 3vw, 1.25rem);
-            line-height: 1.3;
-          }
-
           .mobile-stats-number {
             font-size: clamp(1.25rem, 4vw, 1.5rem);
             line-height: 1.2;
@@ -974,11 +926,6 @@ export default function ResultPageExplosive() {
 
           .mobile-urgency-text {
             font-size: clamp(0.875rem, 3vw, 1.125rem);
-            line-height: 1.3;
-          }
-
-          .mobile-social-text {
-            font-size: clamp(0.75rem, 2.5vw, 0.875rem);
             line-height: 1.3;
           }
 
@@ -1002,26 +949,10 @@ export default function ResultPageExplosive() {
             line-height: 1.3;
           }
 
-          /* Elementos */
-          .mobile-circle {
-            width: clamp(5rem, 15vw, 6rem);
-            height: clamp(5rem, 15vw, 6rem);
-          }
-
-          .mobile-percentage {
-            font-size: clamp(1.25rem, 4vw, 1.5rem);
-            line-height: 1;
-          }
-
           /* Ícones */
           .mobile-icon-size {
             width: clamp(1.25rem, 4vw, 1.5rem);
             height: clamp(1.25rem, 4vw, 1.5rem);
-          }
-
-          .mobile-check-icon {
-            width: clamp(1rem, 3vw, 1.25rem);
-            height: clamp(1rem, 3vw, 1.25rem);
           }
 
           .mobile-social-icon {
@@ -1041,13 +972,6 @@ export default function ResultPageExplosive() {
 
           .mobile-border-green {
             border: clamp(2px, 1vw, 4px) solid rgb(34 197 94) !important;
-          }
-
-          /* Grid */
-          .mobile-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: clamp(0.5rem, 2vw, 1rem);
           }
 
           /* Botões */
@@ -1112,20 +1036,6 @@ export default function ResultPageExplosive() {
             transform: translateZ(0) !important;
           }
 
-          /* iOS */
-          @supports (-webkit-touch-callout: none) {
-            input,
-            select,
-            textarea {
-              font-size: 16px !important;
-            }
-          }
-
-          /* Scroll */
-          html {
-            scroll-behavior: smooth !important;
-          }
-
           /* Texto */
           .break-words {
             word-wrap: break-word !important;
@@ -1139,14 +1049,6 @@ export default function ResultPageExplosive() {
             max-width: 100% !important;
             height: auto !important;
             display: block !important;
-          }
-
-          /* Touch */
-          button,
-          a,
-          [role="button"] {
-            min-height: 44px !important;
-            min-width: 44px !important;
           }
 
           /* Container limits */
@@ -1165,10 +1067,9 @@ export default function ResultPageExplosive() {
             .max-w-3xl { max-width: 48rem !important; }
             .max-w-2xl { max-width: 42rem !important; }
             .max-w-md { max-width: 28rem !important; }
-            .max-w-sm { max-width: 24rem !important; }
           }
 
-          /* Dark mode */
+          /* Dark mode compatibility */
           @media (prefers-color-scheme: dark) {
             .bg-green-50 {
               background-color: rgb(20 83 45) !important;
@@ -1180,14 +1081,6 @@ export default function ResultPageExplosive() {
 
             .text-green-700 {
               color: rgb(134 239 172) !important;
-            }
-          }
-
-          /* Acessibilidade */
-          @media (prefers-reduced-motion: reduce) {
-            .animate-pulse,
-            .animate-bounce {
-              animation: none !important;
             }
           }
 
@@ -1204,23 +1097,11 @@ export default function ResultPageExplosive() {
             .mobile-offer-title {
               font-size: 1.25rem !important;
             }
-
-            .mobile-price-main {
-              font-size: 2rem !important;
-            }
-
-            .mobile-grid {
-              gap: 0.25rem !important;
-            }
           }
 
           @media (min-width: 640px) {
             .mobile-padding {
               padding: 2rem 1rem !important;
-            }
-
-            .mobile-grid {
-              gap: 1rem !important;
             }
           }
         `}</style>

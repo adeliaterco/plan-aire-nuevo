@@ -455,7 +455,7 @@ export default function HomePage() {
 
             {/* 2. NOVO SUBTÍTULO COM GANCHO PSICOLÓGICO */}
             <p className="subtitulo-quiz">
-              Responde <span className="destaque-palavra">7 PREGUNTAS ESPECÍFICAS</span> y descubre si aún sientes algo por ti basándome en señales psicológicas que el 89% ignora...
+              Responde <span className="destaque-palavra">7 PREGUNTAS ESPECÍFICAS</span> y descubre si aún sientes algo por ti basándome en señales psicológicas que el 87% ignora...
               <br />
               <span className="prova-social">3,847 hombres ya conocen la verdad sobre su ex.</span>
             </p>
