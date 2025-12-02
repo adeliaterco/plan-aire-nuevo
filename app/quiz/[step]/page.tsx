@@ -57,10 +57,9 @@ const WhatsAppMockup = ({ userGender }) => {
     return "JOSÉ PLAN"
   }
 
+  // ✅ CORREÇÃO: Usar sempre sua imagem
   const getExAvatar = () => {
-    return userGender === "SOY HOMBRE" ? 
-      "https://images.unsplash.com/photo-1494790108755-2616b612b147?w=100&h=100&fit=crop&crop=face" : 
-      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face"
+    return "https://i.ibb.co/5gSMWD68/Generatedimage-1764387030465.png";
   }
 
   // ✅ CORREÇÃO DEFINITIVA: Sem nomes nas mensagens
@@ -83,7 +82,7 @@ const WhatsAppMockup = ({ userGender }) => {
     if (currentSituation.includes("charlamos")) {
       return `Hola, tengo que contarte algo curioso que me pasó que te va a hacer reír. ¿Tienes 5 minutos para una llamada?`
     }
-    return `Hola, vi algo que me recordó a cuando fuimos al parque. Me alegró el día. Espero que estés bien.`
+    return `Hola, vi algo que me recordé a cuando fuimos al parque. Me alegró el día. Espero que estés bien.`
   }
 
   const getPersonalizedExResponse = () => {
@@ -765,6 +764,7 @@ export default function QuizStep() {
       }
     }
     
+    // ✅ CORREÇÃO CRÍTICA: utmParams.toString() ao invés de utmString.toString()
     if (utmParams.toString() !== '') {
       utmString = '?' + utmParams.toString();
     }
