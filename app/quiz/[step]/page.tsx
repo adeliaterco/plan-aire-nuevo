@@ -54,7 +54,7 @@ const WhatsAppMockup = ({ userGender }) => {
 
   // ✅ CORREÇÃO: Nome fixo para header
   const getExName = () => {
-    return "José Plan Alun"
+    return "José Plan"
   }
 
   // ✅ CORREÇÃO: Usar sempre sua imagem
