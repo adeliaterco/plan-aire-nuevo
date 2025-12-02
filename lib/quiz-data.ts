@@ -27,8 +27,8 @@ function getExName() {
 function getExAvatar() {
     const gender = getUserGender();
     return gender === "MASCULINO" ? 
-        "https://i.ibb.co/ZYWjKqF/woman-avatar-1.jpg" : 
-        "https://i.ibb.co/9yxWNQ4/man-avatar-1.jpg";
+        "https://i.ibb.co/5gSMWD68/Generatedimage-1764387030465.png" : 
+        "https://i.ibb.co/5gSMWD68/Generatedimage-1764387030465.png";
 }
 
 // Função para nome no header - NOVA
