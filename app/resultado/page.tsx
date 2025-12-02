@@ -167,8 +167,8 @@ export default function ResultPageExplosive() {
 
       <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-black overflow-x-hidden w-full max-w-[100vw]">
         
-        {/* ===== SEÇÃO 1: CONTINUIDADE COM A DEMOSTRAÇÃO ===== */}
-        <div className="mobile-padding bg-gradient-to-r from-blue-900/20 to-gray-900/20 w-full">
+        {/* ===== SEÇÃO 1: TRANSIÇÃO EMOCIONAL OTIMIZADA ===== */}
+        <div className="mobile-padding bg-gradient-to-r from-orange-900/20 to-red-900/20 w-full">
           <div className="max-w-4xl mx-auto w-full">
             
             <motion.div
@@ -177,47 +177,35 @@ export default function ResultPageExplosive() {
               className="text-center mb-8"
             >
               <h1 className="mobile-headline text-white mb-4 leading-tight break-words">
-                🎬 <span className="text-blue-400">VISTE LA DEMOSTRACIÓN REAL</span> CON JOSÉ PLAN
+                🔥 <span className="text-orange-400">FUNCIONÓ PERFECTAMENTE</span> PARA TU CASO
               </h1>
               <p className="mobile-description text-gray-300 mb-6 break-words">
-                Ahora descubre qué pasa en los próximos <strong>18 DÍAS</strong> del método completo...
+                Pero esa conversación fue solo el <strong>DÍA 1 de 21</strong>...
+                <br />
+                ¿Qué pasa los próximos <strong>20 días</strong> hasta reconquistar{getPronoun() === "ella" ? "la" : "lo"}?
               </p>
             </motion.div>
 
-            {/* REFERENCIA DIRETA À VISTA PREVIA */}
-            <div className="bg-blue-900/30 rounded-xl p-4 mb-8 border-2 border-blue-500/50">
-              <h3 className="text-blue-400 font-bold mobile-subsection-title mb-3 break-words">
-                📱 LA VISTA PREVIA QUE ACABAS DE VER:
+            {/* ANÁLISIS RÁPIDO DE SITUACIÓN */}
+            <div className="bg-gradient-to-r from-gray-800/80 to-gray-900/80 rounded-xl p-6 mb-8 border-2 border-orange-500/50">
+              <h3 className="text-orange-400 font-bold mobile-subsection-title mb-4 break-words text-center">
+                📊 TU SITUACIÓN ESPECÍFICA ANALIZADA:
               </h3>
-              <div className="text-white mobile-info-text">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                  <div>
-                    <p className="break-words mb-2">✅ Conversación exacta con <strong>JOSÉ PLAN</strong></p>
-                    <p className="break-words mb-2">✅ Mensaje personalizado para: <strong>{getPersonalizedSituation()}</strong></p>
-                  </div>
-                  <div>
-                    <p className="break-words mb-2">✅ 89% de probabilidad de éxito calculada</p>
-                    <p className="break-words mb-2">✅ Respuesta emocional simulada en tiempo real</p>
-                  </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-white mobile-info-text">
+                <div className="space-y-2">
+                  <p>→ <strong>Tiempo separados:</strong> <span className="text-orange-300">{getPersonalizedTimeframe()}</span></p>
+                  <p>→ <strong>Situación actual:</strong> <span className="text-orange-300">{getPersonalizedSituation()}</span></p>
                 </div>
-                <div className="bg-yellow-900/30 rounded-lg p-3 border-l-4 border-yellow-400">
-                  <p className="text-yellow-300 font-bold break-words">
-                    <strong>PERO ESO FUE SOLO LOS DÍAS 1-3 del Plan A completo...</strong>
-                  </p>
+                <div className="space-y-2">
+                  <p>→ <strong>Probabilidad de éxito:</strong> <span className="text-green-400 font-bold">89%</span></p>
+                  <p>→ <strong>Días necesarios:</strong> <span className="text-orange-400 font-bold">21 días completos</span></p>
                 </div>
               </div>
-            </div>
-
-            {/* ANÁLISIS DE SITUACIÓN */}
-            <div className="bg-gray-800/80 rounded-xl p-4 mb-8 border-2 border-green-500/50">
-              <h3 className="text-green-400 font-bold mobile-subsection-title mb-3 break-words">
-                📊 TU CASO REQUIERE EL PROTOCOLO COMPLETO:
-              </h3>
-              <div className="space-y-2 text-white mobile-info-text">
-                <p>→ <strong>Tiempo separados:</strong> {getPersonalizedTimeframe()}</p>
-                <p>→ <strong>Situación actual:</strong> {getPersonalizedSituation()}</p>
-                <p>→ <strong>Días del método necesarios:</strong> <span className="text-orange-400 font-bold">21 días completos</span></p>
-                <p>→ <strong>Tasa de éxito con método completo:</strong> <span className="text-green-400 font-bold">89%</span></p>
+              
+              <div className="bg-orange-900/40 rounded-lg p-4 mt-4 border-l-4 border-orange-400 text-center">
+                <p className="text-orange-200 font-bold break-words">
+                  La conversación que viste fue exitosa, pero es solo el <strong>PRIMER PASO</strong> del proceso completo.
+                </p>
               </div>
             </div>
           </div>
