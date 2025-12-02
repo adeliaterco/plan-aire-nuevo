@@ -32,7 +32,7 @@ function getExAvatar() {
 
 // Função para nome no header - NOVA
 function getHeaderName() {
-    return "JOSÉ PLAN";
+    return "José Plan Alun";
 }
 
 // Função para mensagem personalizada inicial - TOTALMENTE CORRIGIDA
