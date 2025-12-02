@@ -405,13 +405,13 @@ export const quizSteps = [
         }
     },
 
-    // === STEP 12 - VERSÃO FINAL CORRIGIDA ===
+    // === STEP 12 - VERSÃO COM COPY MELHORADA ===
     {
         id: 12,
-        question: "🎬 CREANDO TU DEMOSTRACIÓN PERSONALIZADA EN TIEMPO REAL",
-        description: "Basándome en tu perfil psicológico completo, esta es EXACTAMENTE la conversación que tendrás con tu ex usando el Plan A:",
-        subtext: "Vista previa basada en 8,347 casos exitosos similares al tuyo",
-        options: ["🎯 VER MI ESTRATEGIA COMPLETA DE 21 DÍAS"],
+        question: "🔮 ESTO ES LO QUE ELLA REALMENTE SENTIRÍA SI LE ESCRIBIERAS HOY",
+        description: "Basándome en tu situación exacta y en 12,000 casos reales, aquí está la conversación que probablemente sucedería. No es una predicción genérica - es específica para ti.",
+        subtext: "Lo que verás en los próximos segundos es lo más probable que suceda en la vida real:",
+        options: ["VER CÓMO ELLA RESPONDERÍA"],
         elements: {
             whatsappSimulation: true,
             phoneSimulation: true,
@@ -419,7 +419,7 @@ export const quizSteps = [
             personalizedChat: true,
             cinematicReveal: true,
             profileComplete: "100%",
-            badge: "DEMOSTRACIÓN PERSONALIZADA",
+            badge: "ANÁLISIS PREDICTIVO PERSONALIZADO",
             customComponent: "PhoneSimulationStep"
         },
         note: "Esta demostración usa IA para predecir las respuestas más probables basándose en tu situación específica.",
@@ -1073,7 +1073,7 @@ export const socialProofMessages = [
     "4,129 personas recuperaron sus relaciones este año"
 ]
 
-// Función utilitaria para personalizar textos basados no gênero
+// Função utilitaria para personalizar textos basados no gênero
 export function getPersonalizedContent(content, gender) {
     if (typeof content === "string") {
         return content
