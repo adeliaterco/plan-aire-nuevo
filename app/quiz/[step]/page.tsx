@@ -57,10 +57,10 @@ const WhatsAppMockup = ({ userGender }) => {
     return "JOSÉ PLAN"
   }
 
-  // ✅ CORREÇÃO DEFINITIVA: Usar sua imagem sempre
   const getExAvatar = () => {
-    // Sempre retorna a sua imagem, independente do gênero
-    return "https://i.ibb.co/5gSMWD68/Generatedimage-1764387030465.png";
+    return userGender === "SOY HOMBRE" ? 
+      "https://images.unsplash.com/photo-1494790108755-2616b612b147?w=100&h=100&fit=crop&crop=face" : 
+      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face"
   }
 
   // ✅ CORREÇÃO DEFINITIVA: Sem nomes nas mensagens
@@ -83,7 +83,7 @@ const WhatsAppMockup = ({ userGender }) => {
     if (currentSituation.includes("charlamos")) {
       return `Hola, tengo que contarte algo curioso que me pasó que te va a hacer reír. ¿Tienes 5 minutos para una llamada?`
     }
-    return `Hola, vi algo que me recordé a cuando fuimos al parque. Me alegró el día. Espero que estés bien.`
+    return `Hola, vi algo que me recordó a cuando fuimos al parque. Me alegró el día. Espero que estés bien.`
   }
 
   const getPersonalizedExResponse = () => {
@@ -223,23 +223,7 @@ const WhatsAppMockup = ({ userGender }) => {
             {/* WhatsApp Header */}
             <div className="whatsapp-header">
               <div className="back-arrow">←</div>
-              {/* ✅ TESTE DE DEBUG - Adicionar fallback visual */}
-              <img 
-                src={getExAvatar()} 
-                className="contact-avatar" 
-                alt="Avatar"
-                onError={(e) => {
-                  console.error("Erro ao carregar imagem:", getExAvatar());
-                  e.target.style.backgroundColor = "#FF6B6B";
-                  e.target.style.display = "flex";
-                  e.target.style.alignItems = "center";
-                  e.target.style.justifyContent = "center";
-                  e.target.innerHTML = "❌";
-                }}
-                onLoad={() => {
-                  console.log("✅ Imagem carregada com sucesso:", getExAvatar());
-                }}
-              />
+              <img src={getExAvatar()} className="contact-avatar" alt="Avatar" />
               <div className="contact-info">
                 <div className="contact-name">{getExName()}</div>
                 <div className="last-seen">
@@ -430,10 +414,6 @@ const WhatsAppMockup = ({ userGender }) => {
           border-radius: 50%;
           margin-right: 10px;
           object-fit: cover;
-          /* ✅ FALLBACK VISUAL */
-          background-color: #666;
-          color: white;
-          font-size: 16px;
         }
 
         .contact-info {
@@ -667,8 +647,6 @@ const WhatsAppMockup = ({ userGender }) => {
   )
 }
 
-// === RESTO DO CÓDIGO PERMANECE IGUAL ===
-
 export default function QuizStep() {
   const params = useParams()
   const router = useRouter()
@@ -787,7 +765,7 @@ export default function QuizStep() {
       }
     }
     
-    if (utmString.toString() !== '') {
+    if (utmParams.toString() !== '') {
       utmString = '?' + utmParams.toString();
     }
 
@@ -1102,12 +1080,416 @@ export default function QuizStep() {
                 </div>
               )}
 
-              {/* === RESTO DO CÓDIGO PERMANECE IGUAL === */}
+              {/* Auto advance step */}
+              {currentStep?.autoAdvance && step !== 12 && (
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  className="text-center"
+                >
+                  {currentStep?.elements?.expertImage ? (
+                    <motion.img
+                      src={currentStep.elements.expertImage}
+                      alt="Experto en Reconquista"
+                      className="w-20 h-20 sm:w-24 sm:h-24 rounded-full object-cover border-4 border-blue-600 mx-auto mb-6"
+                      animate={{
+                        y: [0, -8, 0],
+                        scale: [1, 1.02, 1],
+                      }}
+                      transition={{
+                        duration: 4,
+                        repeat: Number.POSITIVE_INFINITY,
+                        ease: "easeInOut",
+                      }}
+                    />
+                  ) : (
+                    <div className="w-20 h-20 sm:w-24 sm:h-24 bg-gradient-to-br from-blue-600 to-purple-700 rounded-full flex items-center justify-center mx-auto mb-6">
+                      <User className="w-10 h-10 sm:w-12 sm:h-12 text-white" />
+                    </div>
+                  )}
 
+                  <motion.div
+                    initial={{ y: 20, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    transition={{ delay: 0.5 }}
+                    className="mb-6"
+                  >
+                    <p className="text-blue-400 font-semibold text-base sm:text-lg mb-4">{currentStep.elements?.autoMessage}</p>
+                  </motion.div>
+
+                  <div className="flex justify-center">
+                    <div className="flex space-x-1">
+                      {[...Array(3)].map((_, i) => (
+                        <motion.div
+                          key={i}
+                          className="w-3 h-3 bg-blue-500 rounded-full"
+                          animate={{
+                            opacity: [0.3, 1, 0.3],
+                          }}
+                          transition={{
+                            duration: 1,  // ✅ Reduzido de 1.5s
+                            repeat: Number.POSITIVE_INFINITY,
+                            delay: i * 0.15, // ✅ Reduzido de 0.2s
+                          }}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                </motion.div>
+              )}
+
+              {/* Final reveal para step 13 */}
+              {currentStep?.elements?.finalReveal && (
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.8 }}
+                  className="text-center mb-8"
+                >
+                  <motion.div
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    transition={{ type: "spring", duration: 1, delay: 0.3 }}
+                    className="mb-6"
+                  >
+                    <div className="w-20 h-20 sm:w-24 sm:h-24 bg-gradient-to-br from-green-500 to-emerald-600 rounded-full flex items-center justify-center mx-auto">
+                      <CheckCircle className="w-10 h-10 sm:w-12 sm:h-12 text-white" />
+                    </div>
+                  </motion.div>
+
+                  <motion.div
+                    initial={{ width: 0 }}
+                    animate={{ width: "100%" }}
+                    transition={{ duration: 1.5, delay: 0.5 }} // ✅ Reduzido de 2s
+                    className="mb-6"
+                  >
+                    <div className="bg-green-900/50 border border-green-500 rounded-lg p-4 text-center">
+                      <div className="flex items-center justify-center gap-2 mb-2">
+                        <Trophy className="w-5 h-5 sm:w-6 sm:h-6 text-green-400" />
+                        <span className="text-xl sm:text-2xl font-bold text-green-400">
+                          {currentStep.elements.profileComplete}
+                        </span>
+                      </div>
+                      <p className="text-green-300 font-medium text-sm sm:text-base">Análisis Completo</p>
+                    </div>
+                  </motion.div>
+
+                  <motion.div
+                    initial={{ y: 20, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    transition={{ delay: 0.8 }} // ✅ Reduzido de 1s
+                    className="bg-blue-900/50 border border-blue-500 rounded-lg p-4 mb-6"
+                  >
+                    <div className="flex items-center justify-center gap-2">
+                      <Target className="w-5 h-5 sm:w-6 sm:h-6 text-blue-400" />
+                      <span className="text-blue-300 font-semibold text-sm sm:text-base">Plan Personalizado Generado</span>
+                    </div>
+                  </motion.div>
+                </motion.div>
+              )}
+
+              {/* Foto de experto para el paso 11 y 13 */}
+              {currentStep?.elements?.expertPhoto && !currentStep?.autoAdvance && step !== 12 && (
+                <div className="flex justify-center mb-6">
+                  {currentStep?.elements?.expertImage ? (
+                    <motion.img
+                      src={currentStep.elements.expertImage}
+                      alt="Experto en Reconquista"
+                      className="w-16 h-16 sm:w-20 sm:h-20 rounded-full object-cover border-4 border-blue-600"
+                      animate={{
+                        y: [0, -6, 0],
+                        rotate: [0, 2, -2, 0],
+                      }}
+                      transition={{
+                        duration: 4, // ✅ Reduzido de 5s
+                        repeat: Number.POSITIVE_INFINITY,
+                        ease: "easeInOut",
+                      }}
+                    />
+                  ) : (
+                    <div className="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-blue-600 to-purple-700 rounded-full flex items-center justify-center">
+                      <User className="w-8 h-8 sm:w-10 sm:h-10 text-white" />
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {/* Compatibilidade calculation for step 11 */}
+              {currentStep?.elements?.compatibilityCalc && (
+                <motion.div
+                  initial={{ width: 0 }}
+                  animate={{ width: "91%" }}
+                  transition={{ duration: 1.5, delay: 0.5 }} // ✅ Reduzido de 2s
+                  className="mb-6"
+                >
+                  <div className="bg-green-900/50 border border-green-500 rounded-lg p-4 text-center">
+                    <div className="text-2xl sm:text-3xl font-bold text-green-400">
+                      {currentStep.elements.compatibilityCalc} de compatibilidad
+                    </div>
+                  </div>
+                </motion.div>
+              )}
+
+              {!currentStep?.autoAdvance && step !== 12 && (
+                <>
+                  <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-6 text-center leading-tight">
+                    {getPersonalizedQuestion()}
+                  </h2>
+
+                  {getPersonalizedSubtext() && (
+                    <p className="text-orange-200 text-center mb-6 text-base sm:text-lg font-medium whitespace-pre-wrap">{getPersonalizedSubtext()}</p>
+                  )}
+
+                  {getPersonalizedDescription() && (
+                    <div className="text-gray-300 text-center mb-8 text-sm sm:text-base whitespace-pre-wrap">
+                      {step === 13 ? (
+                        <div className="space-y-6">
+                          {getPersonalizedDescription().split('**').map((section, index) => {
+                            if (index % 2 === 1) {
+                              return <strong key={index} className="text-orange-400">{section}</strong>
+                            }
+                            return section ? (
+                              <div key={index} className="p-4 bg-gray-800/50 rounded-lg border border-gray-600 text-left">
+                                {section.trim()}
+                              </div>
+                            ) : null
+                          })}
+                        </div>
+                      ) : (
+                        getPersonalizedDescription()
+                      )}
+                    </div>
+                  )}
+
+                  {/* Evidência Científica - APENAS ETAPA 11 */}
+                  {currentStep?.elements?.scientificEvidence && (
+                    <motion.div 
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.6, delay: 0.3 }} // ✅ Reduzido delays
+                      className="mb-8 space-y-6"
+                    >
+                      {currentStep.elements.reportageImage && (
+                        <motion.div
+                          initial={{ opacity: 0, scale: 0.95 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          transition={{ duration: 0.4, delay: 0.4 }} // ✅ Reduzido
+                          className="relative"
+                        >
+                          <img
+                            src={currentStep.elements.reportageImage}
+                            alt="Reportagem BBC sobre neurociência"
+                            className="w-full rounded-lg shadow-xl border border-gray-600 hover:shadow-2xl transition-shadow duration-300"
+                          />
+                        </motion.div>
+                      )}
+
+                      {currentStep.elements.curiousImage && (
+                        <motion.div
+                          initial={{ opacity: 0, scale: 0.95 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          transition={{ duration: 0.4, delay: 0.6 }} // ✅ Reduzido
+                          className="relative"
+                        >
+                          <img
+                            src={currentStep.elements.curiousImage}
+                            alt="Evidência científica curiosa"
+                            className="w-full rounded-lg shadow-xl border border-gray-600 hover:shadow-2xl transition-shadow duration-300"
+                          />
+                          <div className="absolute top-4 right-4 bg-blue-600 text-white px-3 py-1 rounded-full text-xs font-bold">
+                            NEUROCIÊNCIA
+                          </div>
+                        </motion.div>
+                      )}
+
+                      <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ delay: 0.8 }} // ✅ Reduzido de 1.1s
+                        className="bg-blue-900/30 border border-blue-500/50 rounded-lg p-4 text-center"
+                      >
+                        <p className="text-blue-200 text-sm sm:text-base font-medium">
+                          🧠 <strong>Comprobado científicamente:</strong> Los métodos del PLAN A activan las mismas áreas cerebrales responsables por el enamoramiento inicial.
+                        </p>
+                      </motion.div>
+                    </motion.div>
+                  )}
+
+                  {/* Termómetro para nivel de compromiso */}
+                  {currentStep?.elements?.thermometer && (
+                    <div className="mb-8">
+                      <div className="flex justify-between text-gray-300 text-xs sm:text-sm mb-2 font-medium">
+                        <span>No estoy seguro</span>
+                        <span>Lo quiero mucho</span>
+                      </div>
+                      <div className="bg-gray-700 rounded-full h-3 sm:h-4 mb-4">
+                        <motion.div
+                          className="bg-gradient-to-r from-orange-500 to-red-600 h-full rounded-full"
+                          initial={{ width: "0%" }}
+                          animate={{ width: selectedAnswer ? "100%" : "0%" }}
+                          transition={{ duration: 0.3 }} // ✅ Reduzido de 0.5s
+                        />
+                      </div>
+                    </div>
+                  )}
+
+                  {getPersonalizedOptions().length > 0 && (
+                    <div className="space-y-3 sm:space-y-4">
+                      {getPersonalizedOptions().map((option, index) => (
+                        <motion.div
+                          key={index}
+                          initial={{ opacity: 0, x: -20 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ delay: index * 0.08, duration: 0.3 }} // ✅ Delays reduzidos
+                          className="relative"
+                        >
+                          <button
+                            onClick={() => handleAnswerSelect(option)}
+                            data-option={option}
+                            className={`w-full p-4 sm:p-6 text-left justify-start text-wrap h-auto rounded-lg border-2 transition-all duration-300 transform hover:scale-102 ${
+                              selectedAnswer === option
+                                ? "bg-gradient-to-r from-orange-500 to-red-600 text-white border-orange-500 shadow-lg scale-105"
+                                : "bg-gray-800 text-white border-gray-600 hover:bg-gray-700 hover:border-gray-500 shadow-sm"
+                            }`}
+                          >
+                            <div className="flex items-center w-full">
+                              <div className={`mr-3 sm:mr-4 ${selectedAnswer === option ? "text-white" : "text-orange-400"}`}>
+                                {getStepIcon(step, index)}
+                              </div>
+
+                              <div
+                                className={`w-4 h-4 sm:w-5 sm:h-5 rounded-full border-2 mr-3 sm:mr-4 flex items-center justify-center transition-all flex-shrink-0 ${
+                                  selectedAnswer === option ? "border-white bg-white" : "border-gray-400 bg-gray-700"
+                                }`}
+                              >
+                                {selectedAnswer === option && <Check className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-orange-600" />}
+                              </div>
+                              <span className="flex-1 font-medium text-sm sm:text-base leading-relaxed">{option}</span>
+                            </div>
+                          </button>
+
+                          {!selectedAnswer && (
+                            <motion.div
+                              className="absolute inset-0 rounded-lg border-2 border-orange-400/50 pointer-events-none"
+                              animate={{
+                                opacity: [0, 0.3, 0],
+                                scale: [1, 1.02, 1],
+                              }}
+                              transition={{
+                                duration: 1.5, // ✅ Reduzido de 2s
+                                repeat: Number.POSITIVE_INFINITY,
+                                delay: index * 0.3, // ✅ Reduzido de 0.5s
+                              }}
+                            />
+                          )}
+                        </motion.div>
+                      ))}
+                    </div>
+                  )}
+
+                  {currentStep.note && (
+                    <motion.div
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ delay: 0.6 }} // ✅ Reduzido de 0.8s
+                      className="mt-6 text-center text-amber-300 bg-amber-900/30 p-4 rounded-lg border border-amber-600"
+                    >
+                      <p className="font-medium text-sm sm:text-base">{currentStep.note}</p>
+                    </motion.div>
+                  )}
+
+                  {currentStep.guarantee && (
+                    <motion.div
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ delay: 0.7 }} // ✅ Reduzido de 0.9s
+                      className="mt-6 text-center text-green-300 bg-green-900/30 p-4 rounded-lg border border-green-600"
+                    >
+                      <p className="font-medium text-sm sm:text-base">{currentStep.guarantee}</p>
+                    </motion.div>
+                  )}
+
+                  {currentStep.warning && (
+                    <motion.div
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ delay: 0.6 }} // ✅ Reduzido de 0.8s
+                      className="mt-6 text-center text-red-300 bg-red-900/30 p-4 rounded-lg border border-red-600 flex items-center justify-center gap-2"
+                    >
+                      <AlertTriangle className="w-4 h-4" />
+                      <p className="font-medium text-sm sm:text-base">{currentStep.warning}</p>
+                    </motion.div>
+                  )}
+
+                  {selectedAnswer && getPersonalizedOptions().length > 0 && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="mt-8 text-center"
+                    >
+                      <Button
+                        onClick={handleNext}
+                        size="lg"
+                        className="bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-600 hover:to-red-700 text-white font-bold py-3 px-6 sm:py-4 sm:px-8 rounded-full shadow-lg w-full sm:w-auto text-sm sm:text-base"
+                      >
+                        {step === 13 ? "Ver Resultado" : "Siguiente Pregunta"}
+                        <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 ml-2" />
+                      </Button>
+                    </motion.div>
+                  )}
+                </>
+              )}
             </CardContent>
           </Card>
         </motion.div>
+
+        {/* Prueba Social */}
+        {step > 2 && !currentStep?.autoAdvance && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.8 }} // ✅ Reduzido de 1s
+            className="text-center space-y-2 mt-6"
+          >
+            {currentStep?.elements?.counter && (
+              <p className="text-white text-xs sm:text-sm bg-white/10 px-3 py-1 rounded-full inline-block">
+                👥 {peopleCount} {currentStep.elements.counter}
+              </p>
+            )}
+
+            {currentStep?.elements?.helpedCounter && (
+              <p className="text-green-400 text-xs sm:text-sm font-semibold bg-green-900/20 px-3 py-1 rounded-full inline-block">
+                ✅ {currentStep.elements.helpedCounter}
+              </p>
+            )}
+
+            {step > 5 && (
+              <p className="text-blue-300 text-xs sm:text-sm bg-blue-900/20 px-3 py-1 rounded-full inline-block">
+                {socialProofMessages[Math.min(step - 6, socialProofMessages.length - 1)]}
+              </p>
+            )}
+          </motion.div>
+        )}
       </div>
+
+      {/* Modal de Análisis de Carga */}
+      <AnimatePresence>
+        {showAnalysis && (
+          <LoadingAnalysis
+            message={
+              currentStep?.elements?.analysisText ||
+              currentStep?.elements?.profileAnalysis ||
+              "Analizando tus respuestas..."
+            }
+            successMessage={currentStep?.elements?.successRate}
+          />
+        )}
+      </AnimatePresence>
+
+      {/* Modal de Desbloqueo de Bonificación */}
+      <AnimatePresence>
+        {showBonusUnlock && newBonus && <BonusUnlock bonus={newBonus} onComplete={handleBonusUnlockComplete} />}
+      </AnimatePresence>
     </div>
   )
 }

@@ -6,9 +6,8 @@ function getUserAnswer(questionId) {
     return answers[questionId] || '';
 }
 
-// ✅ CORRIGIDO: Retorna "SOY HOMBRE" ao invés de "MASCULINO"
 function getUserGender() {
-    return getUserAnswer('question1') || 'SOY HOMBRE';
+    return getUserAnswer('question1') || 'MASCULINO';
 }
 
 // === NOVAS FUNÇÕES PARA MOCKUP ===
@@ -20,14 +19,16 @@ function getExName() {
     const femaleNames = ['María', 'Ana', 'Carmen', 'Isabel', 'Sofía', 'Elena', 'Laura'];
     const maleNames = ['Carlos', 'José', 'Antonio', 'Manuel', 'Luis', 'Miguel', 'Alejandro'];
     
-    const names = gender === "SOY HOMBRE" ? femaleNames : maleNames; // ✅ CORRIGIDO
+    const names = gender === "MASCULINO" ? femaleNames : maleNames;
     return names[Math.floor(Math.random() * names.length)];
 }
 
-// ✅ FUNÇÃO CORRIGIDA - MESMA IMAGEM PARA AMBOS OS SEXOS
+// Função para avatar da ex - CORRIGIDA
 function getExAvatar() {
-    // Sempre retorna a mesma imagem, independente do gênero
-    return "https://i.ibb.co/5gSMWD68/Generatedimage-1764387030465.png";
+    const gender = getUserGender();
+    return gender === "MASCULINO" ? 
+        "https://i.ibb.co/5gSMWD68/Generatedimage-1764387030465.png" : 
+        "https://i.ibb.co/5gSMWD68/Generatedimage-1764387030465.png";
 }
 
 // Função para nome no header - NOVA
@@ -136,7 +137,7 @@ export function getPersonalizedTechnique() {
     const currentSituation = getUserAnswer('question7');
     const timeApart = getUserAnswer('question3');
     const gender = getUserGender();
-    const pronoun = gender === "SOY HOMBRE" ? "ella" : "él"; // ✅ CORRIGIDO
+    const pronoun = gender === "MASCULINO" ? "ella" : "él";
     
     if (currentSituation.includes("contacto cero")) {
         return `🎯 TU TÉCNICA: "RUPTURA DEL SILENCIO MAGNÉTICO"
@@ -185,7 +186,7 @@ export const quizSteps = [
         question: "¡NO DEJES QUE LA PERSONA QUE AMAS SALGA DE TU VIDA PARA SIEMPRE!",
         description: "INICIANDO ANÁLISIS PSICOLÓGICO - Para revelar si ella aún siente algo por ti, necesito mapear tu perfil emocional específico.",
         subtext: "DATO CRÍTICO #1 - Tu género influye directamente en cómo ella procesa la separación:",
-        options: ["SOY HOMBRE", "SOY MUJER"], // ✅ CORRIGIDO
+        options: ["SOY HOMBRE", "SOY MUJER"],
         warning: "⚠️ IMPORTANTE: Este análisis fue desarrollado basándose en 12,000 casos reales de reconquista. Cada respuesta ajusta tu diagnóstico.",
         elements: {
             psychologicalTest: true,
@@ -238,12 +239,12 @@ export const quizSteps = [
         description: "Cómo terminó la relación revela su estado emocional actual y define qué estrategia psicológica será más efectiva.",
         subtext: "DATO CRÍTICO #4 - ¿Cómo fue la separación?",
         options: {
-            SOY_HOMBRE: [ // ✅ CORRIGIDO (removido masculino/feminino)
+            masculino: [
                 "Ella terminó conmigo → Patrón de rechazo activo",
                 "Yo terminé con ella → Patrón de arrepentimiento",
                 "Decisión mutua → Patrón de duda compartida"
             ],
-            SOY_MUJER: [
+            feminino: [
                 "Él terminó conmigo → Patrón de rechazo activo", 
                 "Yo terminé con él → Patrón de arrepentimiento",
                 "Decisión mutua → Patrón de duda compartida"
@@ -278,7 +279,7 @@ export const quizSteps = [
         description: "Tu mayor sufrimiento revela qué necesitas sanar ANTES de aplicar cualquier técnica de reconquista.",
         subtext: "DATO CRÍTICO #6 - ¿Cuál fue la parte más dolorosa?",
         options: {
-            SOY_HOMBRE: [ // ✅ CORRIGIDO
+            masculino: [
                 "😔 La soledad y el vacío → Necesitas 'Protocolo de Autoconfianza'",
                 "😢 La montaña rusa emocional → Necesitas 'Estabilización Mental'",
                 "😐 Los recuerdos constantes → Necesitas 'Técnica de Reframe'",
@@ -286,7 +287,7 @@ export const quizSteps = [
                 "🤔 Los planes perdidos → Necesitas 'Visión de Futuro'",
                 "⚡ Otro → Requiere análisis personalizado"
             ],
-            SOY_MUJER: [
+            feminino: [
                 "😔 La soledad y el vacío → Necesitas 'Protocolo de Autoconfianza'",
                 "😢 La montaña rusa emocional → Necesitas 'Estabilización Mental'", 
                 "😐 Los recuerdos constantes → Necesitas 'Técnica de Reframe'",
@@ -307,7 +308,7 @@ export const quizSteps = [
         description: "Tu situación presente define tu PUNTO DE PARTIDA y qué estrategia específica necesitas aplicar primero.",
         subtext: "DATO CRÍTICO #7 - ¿Cuál es tu situación actual con tu ex?",
         options: {
-            SOY_HOMBRE: [ // ✅ CORRIGIDO
+            masculino: [
                 "🧐 Contacto cero → Estrategia de 'Ruptura del Silencio'",
                 "😢 Me ignora → Protocolo de 'Reactivación de Interés'", 
                 "❌ Me bloqueó → Técnica de 'Acceso Indirecto'",
@@ -316,7 +317,7 @@ export const quizSteps = [
                 "😌 Somos 'amigos' → Estrategia de 'Ruptura de Patrón'",
                 "🔥 Encuentros íntimos → Protocolo de 'Definición de Relación'"
             ],
-            SOY_MUJER: [
+            feminino: [
                 "🧐 Contacto cero → Estrategia de 'Ruptura del Silencio'",
                 "😢 Me ignora → Protocolo de 'Reactivación de Interés'",
                 "❌ Me bloqueó → Técnica de 'Acceso Indirecto'", 
@@ -338,14 +339,14 @@ export const quizSteps = [
         description: "Esta información determina la URGENCIA de tu estrategia y qué técnicas avanzadas necesitarás.",
         subtext: "DATO CRÍTICO #8 - ¿Ya está saliendo con otra persona?",
         options: {
-            SOY_HOMBRE: [ // ✅ CORRIGIDO
+            masculino: [
                 "🚫 Está soltera → Estrategia estándar aplicable",
                 "🤔 No estoy seguro → Protocolo de investigación discreta",
                 "😔 Saliendo casual → Técnica de diferenciación intensiva", 
                 "💔 Relación seria → Estrategia avanzada de largo plazo",
                 "🔄 Varias personas → Protocolo de valor único"
             ],
-            SOY_MUJER: [
+            feminino: [
                 "🚫 Está soltero → Estrategia estándar aplicable",
                 "🤔 No estoy segura → Protocolo de investigación discreta",
                 "😔 Saliendo casual → Técnica de diferenciación intensiva",
@@ -1080,12 +1081,8 @@ export function getPersonalizedContent(content, gender) {
     }
 
     if (typeof content === "object" && content !== null) {
-        if (content.SOY_HOMBRE && content.SOY_MUJER) { // ✅ CORRIGIDO
-            return gender === "SOY HOMBRE" ? content.SOY_HOMBRE : content.SOY_MUJER
-        }
-        // ✅ FALLBACK para compatibilidade com versões antigas
         if (content.masculino && content.feminino) {
-            return gender === "SOY HOMBRE" ? content.masculino : content.feminino
+            return gender === "MASCULINO" ? content.masculino : content.feminino
         }
         return content
     }
@@ -1098,7 +1095,7 @@ if (typeof window !== 'undefined') {
     window.getPersonalizedFirstInsight = getPersonalizedFirstInsight;
     window.getPersonalizedTechnique = getPersonalizedTechnique;
     window.getExName = getExName;
-    window.getExAvatar = getExAvatar; // ✅ EXPORTANDO A FUNÇÃO CORRIGIDA
+    window.getExAvatar = getExAvatar;
     window.getPersonalizedFirstMessage = getPersonalizedFirstMessage;
     window.getPersonalizedExResponse = getPersonalizedExResponse;
     window.getPersonalizedFollowUp = getPersonalizedFollowUp;
