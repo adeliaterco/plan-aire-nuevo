@@ -1047,21 +1047,21 @@ export default function QuizStep() {
           <Card className="bg-gradient-to-br from-gray-900/95 to-black/95 backdrop-blur-lg border-orange-500/30 shadow-2xl border-2">
             <CardContent className="p-6 sm:p-8">
               
-              {/* === RENDERIZAÇÃO ESPECIAL PARA STEP 12 === */}
+              {/* === RENDERIZAÇÃO ESPECIAL PARA STEP 12 - COM MELHORIAS APLICADAS === */}
               {step === 12 && (
                 <div className="text-center">
                   <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-6 leading-tight">
-                    🎬 CREANDO TU DEMOSTRACIÓN PERSONALIZADA EN TIEMPO REAL
+                    🔮 ESTO ES LO QUE ELLA REALMENTE SENTIRÍA SI LE ESCRIBIERAS HOY
                   </h2>
                   
                   <p className="text-orange-200 text-center mb-8 text-base sm:text-lg font-medium">
-                    Basándome en tu perfil psicológico completo, esta es EXACTAMENTE la conversación que tendrás con tu ex usando el Plan A:
+                    Basándome en tu situación exacta y en 12,000 casos reales, aquí está la conversación que probablemente sucedería. No es una predicción genérica - es específica para ti.
                   </p>
                   
                   <WhatsAppMockup userGender={userGender} />
                   
                   <p className="text-gray-400 text-sm mb-8">
-                    Vista previa basada en 8,347 casos exitosos similares al tuyo
+                    Lo que verás en los próximos segundos es lo más probable que suceda en la vida real:
                   </p>
                   
                   <motion.div className="text-center">
@@ -1073,7 +1073,7 @@ export default function QuizStep() {
                       size="lg"
                       className="bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-600 hover:to-red-700 text-white font-bold py-3 px-6 sm:py-4 sm:px-8 rounded-full shadow-lg w-full sm:w-auto text-sm sm:text-base"
                     >
-                      🎯 VER MI ESTRATEGIA COMPLETA DE 21 DÍAS
+                      VER CÓMO ELLA RESPONDERÍA
                       <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 ml-2" />
                     </Button>
                   </motion.div>
