@@ -182,7 +182,7 @@ export default function ResultPageExplosive() {
               <p className="mobile-description text-gray-300 mb-6 break-words">
                 PERO la demostración que viste fue solo solo el <strong>DÍA 1 de 21</strong>...
                 <br />
-                Sin los próximos <strong>20 días</strong> del método, fallarás en la semana 2."{getPronoun() === "ella" ? "la" : "lo"}?
+                Sin los próximos <strong>20 días</strong> del método, fallarás en la semana 2."
               </p>
             </motion.div>
 
