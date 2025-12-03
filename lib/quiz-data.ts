@@ -27,7 +27,7 @@ function getExName() {
 // ✅ FUNÇÃO CORRIGIDA - MESMA IMAGEM PARA AMBOS OS SEXOS
 function getExAvatar() {
     // Sempre retorna a mesma imagem, independente do gênero
-    return "https://i.ibb.co/5gSMWD68/Generatedimage-1764387030465.png";
+    return "https://i.ibb.co/5hbjyZFJ/CASAL-JOSE.webp";
 }
 
 // Função para nome no header - NOVA
