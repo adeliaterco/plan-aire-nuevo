@@ -59,7 +59,7 @@ const WhatsAppMockup = ({ userGender }) => {
 
   // ✅ CORREÇÃO: Usar sempre sua imagem
   const getExAvatar = () => {
-    return "https://i.ibb.co/5gSMWD68/Generatedimage-1764387030465.png";
+    return "https://i.ibb.co/5hbjyZFJ/CASAL-JOSE.webp";
   }
 
   // ✅ CORREÇÃO DEFINITIVA: Sem nomes nas mensagens
