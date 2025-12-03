@@ -451,7 +451,7 @@ export default function ResultPageExplosive() {
                         <MessageCircle className="mobile-icon-size mr-2 flex-shrink-0" />
                         <div className="text-center break-words">
                           <div className="mobile-cta-offer-text leading-tight font-black">
-                            📱 QUIERO EL MÉTODO COMPLETO DE LA DEMOSTRACIÓN
+                            📱 QUIERO EL MÉTODO COMPLETO
                           </div>
                           <div className="mobile-small-text mt-1 opacity-90">
                             Los 21 días completos, no solo los primeros 3
@@ -745,7 +745,7 @@ export default function ResultPageExplosive() {
                     >
                       <div className="text-center break-words">
                         <div className="mobile-cta-final-text leading-tight font-black">
-                          🎬 SÍ, QUIERO COMPLETAR LA DEMOSTRACIÓN EN LA VIDA REAL
+                          🎬 SÍ, QUIERO COMPLETAR AHORA
                         </div>
                         <div className="mobile-small-text mt-1 opacity-90">
                           Los 21 días completos para reconquistar a {getPronoun()}
