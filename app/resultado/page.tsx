@@ -177,12 +177,12 @@ export default function ResultPageExplosive() {
               className="text-center mb-8"
             >
               <h1 className="mobile-headline text-white mb-4 leading-tight break-words">
-                🔥 <span className="text-orange-400">FUNCIONÓ PERFECTAMENTE</span> PARA TU CASO
+                🔥 <span className="text-orange-400">🚨 CONFIRMADO:</span> Tienes 89% de probabilidad de recuperarla
               </h1>
               <p className="mobile-description text-gray-300 mb-6 break-words">
-                Pero esa conversación fue solo el <strong>DÍA 1 de 21</strong>...
+                PERO la demostración que viste fue solo solo el <strong>DÍA 1 de 21</strong>...
                 <br />
-                ¿Qué pasa los próximos <strong>20 días</strong> hasta reconquistar{getPronoun() === "ella" ? "la" : "lo"}?
+                Sin los próximos <strong>20 días</strong> del método, fallarás en la semana 2."{getPronoun() === "ella" ? "la" : "lo"}?
               </p>
             </motion.div>
 
